@@ -1,0 +1,21 @@
+================
+Simple label
+================
+
+:start
+
+---
+
+(program
+  (label))
+
+================
+Label with underscore
+================
+
+:my_label
+
+---
+
+(program
+  (label))

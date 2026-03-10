@@ -1,0 +1,32 @@
+================
+SETLOCAL simple
+================
+
+setlocal
+
+---
+
+(program
+  (setlocal_stmt))
+
+================
+SETLOCAL EnableDelayedExpansion
+================
+
+setlocal enabledelayedexpansion
+
+---
+
+(program
+  (setlocal_stmt))
+
+================
+ENDLOCAL
+================
+
+endlocal
+
+---
+
+(program
+  (endlocal_stmt))

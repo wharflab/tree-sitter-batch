@@ -1,0 +1,67 @@
+================
+Simple command
+================
+
+dir
+
+---
+
+(program
+  (cmd
+    (command_name)))
+
+================
+Command with arguments
+================
+
+copy file1.txt file2.txt
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Command with options
+================
+
+del /q /s temp
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (command_option)
+      (command_option)
+      (argument_value))))
+
+================
+Suppressed command
+================
+
+@cls
+
+---
+
+(program
+  (cmd
+    (command_name)))
+
+================
+CALL subroutine
+================
+
+call :subroutine arg1
+
+---
+
+(program
+  (call_stmt
+    (argument_list
+      (argument_value))))

@@ -1,0 +1,32 @@
+================
+GOTO label
+================
+
+goto start
+
+---
+
+(program
+  (goto_stmt))
+
+================
+GOTO with colon
+================
+
+goto :start
+
+---
+
+(program
+  (goto_stmt))
+
+================
+GOTO :eof
+================
+
+goto :eof
+
+---
+
+(program
+  (goto_stmt))

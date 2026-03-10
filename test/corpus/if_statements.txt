@@ -1,0 +1,80 @@
+================
+IF EXIST
+================
+
+if exist "file.txt" echo Found
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF DEFINED
+================
+
+if defined MY_VAR echo Defined
+
+---
+
+(program
+  (if_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF ERRORLEVEL
+================
+
+if errorlevel 1 echo Failed
+
+---
+
+(program
+  (if_stmt
+    (integer)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF comparison
+================
+
+if "%VAR%"=="value" echo Match
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (comparison_op)
+    (string)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF NOT
+================
+
+if not exist "file.txt" echo Missing
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

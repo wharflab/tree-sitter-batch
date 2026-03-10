@@ -1,0 +1,43 @@
+================
+SET simple variable
+================
+
+set MY_VAR=hello
+
+---
+
+(program
+  (variable_assignment))
+
+================
+SET quoted variable
+================
+
+set "MY_VAR=hello world"
+
+---
+
+(program
+  (variable_assignment))
+
+================
+SET /a arithmetic
+================
+
+set /a result=5
+
+---
+
+(program
+  (variable_assignment))
+
+================
+SET /p prompt
+================
+
+set /p answer=Enter value:
+
+---
+
+(program
+  (variable_assignment))

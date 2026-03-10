@@ -1,0 +1,39 @@
+================
+AND operator
+================
+
+copy file1.txt file2.txt && echo Success
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)
+        (argument_value)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+OR operator
+================
+
+copy file1.txt file2.txt || echo Failed
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)
+        (argument_value)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

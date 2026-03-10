@@ -1,0 +1,34 @@
+================
+EXIT simple
+================
+
+exit
+
+---
+
+(program
+  (exit_stmt))
+
+================
+EXIT /b with code
+================
+
+exit /b 0
+
+---
+
+(program
+  (exit_stmt
+    (integer)))
+
+================
+EXIT /b with variable
+================
+
+exit /b %ERRORLEVEL%
+
+---
+
+(program
+  (exit_stmt
+    (variable_reference)))

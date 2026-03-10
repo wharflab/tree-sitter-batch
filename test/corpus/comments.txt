@@ -1,0 +1,32 @@
+================
+REM comment
+================
+
+REM This is a comment
+
+---
+
+(program
+  (comment))
+
+================
+Double colon comment
+================
+
+:: This is a comment
+
+---
+
+(program
+  (comment))
+
+================
+REM with @ prefix
+================
+
+@REM This is a suppressed comment
+
+---
+
+(program
+  (comment))

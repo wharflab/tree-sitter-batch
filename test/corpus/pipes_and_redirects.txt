@@ -1,0 +1,66 @@
+================
+Simple pipe
+================
+
+dir | find "test"
+
+---
+
+(program
+  (pipe_stmt
+    (cmd
+      (command_name))
+    (cmd
+      (command_name)
+      (argument_list
+        (string)))))
+
+================
+Simple redirect
+================
+
+echo hello > output.txt
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (redirection
+      (redirect_op)
+      (redirect_target))))
+
+================
+Redirect to nul
+================
+
+dir > nul
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (redirect_op)
+      (redirect_target))))
+
+================
+Stderr redirect
+================
+
+dir 2>nul
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (redirect_op)
+      (redirect_target))))

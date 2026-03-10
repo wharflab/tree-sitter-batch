@@ -1,0 +1,59 @@
+================
+Complete batch script
+================
+
+@echo off
+REM Simple batch script
+set "NAME=World"
+echo Hello %NAME%
+
+---
+
+(program
+  (echo_off)
+  (comment)
+  (variable_assignment)
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (variable_reference))))
+
+================
+IF with parenthesized block
+================
+
+if exist "file.txt" (
+echo Found
+)
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (parenthesized
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))))
+
+================
+Multiple commands
+================
+
+cls
+echo Starting
+pause
+
+---
+
+(program
+  (cmd
+    (command_name))
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)))
+  (cmd
+    (command_name)))

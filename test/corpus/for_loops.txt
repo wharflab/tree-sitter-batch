@@ -1,0 +1,52 @@
+================
+FOR basic
+================
+
+for %%i in (*.txt) do echo %%i
+
+---
+
+(program
+  (for_stmt
+    (for_variable)
+    (for_set)
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))
+
+================
+FOR /L numeric
+================
+
+for /l %%i in (1,1,10) do echo %%i
+
+---
+
+(program
+  (for_stmt
+    (for_options)
+    (for_variable)
+    (for_set)
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))
+
+================
+FOR /F file parsing
+================
+
+for /f "tokens=1,2 delims=," %%a in (data.csv) do echo %%a
+
+---
+
+(program
+  (for_stmt
+    (for_options)
+    (for_variable)
+    (for_set)
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))
