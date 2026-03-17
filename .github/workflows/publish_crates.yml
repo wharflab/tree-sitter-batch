@@ -31,8 +31,6 @@ jobs:
             tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
-        env:
-          TREE_SITTER_ABI_VERSION: 15
       - name: Sync version from tree-sitter.json
         run: |
           VERSION=$(jq -r .metadata.version tree-sitter.json)
