@@ -24,18 +24,6 @@ jobs:
           toolchain: ${{vars.RUST_TOOLCHAIN || 'stable'}}
       - name: Set up tree-sitter CLI
         uses: tree-sitter/setup-action/cli@v2
-      - name: Install dependencies
-        run: |-
-          if jq -e "$JQ_SCRIPT" package.json >/dev/null; then
-            npm i --ignore-scripts --omit peer --omit optional
-          fi
-        env:
-          JQ_SCRIPT: >-
-            .dependencies + .devDependencies |
-            with_entries(select(
-            (.key | startswith("tree-sitter-"))
-            and (.key != "tree-sitter-cli")
-            )) | length > 0
       - name: Regenerate parser
         run: |
           while read -r grammar_dir; do
@@ -43,8 +31,10 @@ jobs:
             tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
-        env:
-          TREE_SITTER_ABI_VERSION: 15
+      - name: Sync version from tree-sitter.json
+        run: |
+          VERSION=$(jq -r .metadata.version tree-sitter.json)
+          sed -i "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml
       - name: Set up registry token
         id: auth
         uses: rust-lang/crates-io-auth-action@v1

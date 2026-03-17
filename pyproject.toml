@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools>=62.4.0", "wheel"]
+requires = ["setuptools>=80", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "tree-sitter-batch"
 description = "A Windows Batch/CMD grammar for tree-sitter"
-version = "0.2.0"
+dynamic = ["version"]
 keywords = ["incremental", "parsing", "tree-sitter", "batch", "cmd"]
 classifiers = [
   "Intended Audience :: Developers",
@@ -15,7 +15,7 @@ classifiers = [
 ]
 authors = [{ name = "WharfLab" }]
 requires-python = ">=3.10"
-license.text = "MIT"
+license = "MIT"
 readme = "README.md"
 
 [project.urls]
@@ -23,6 +23,8 @@ Homepage = "https://github.com/wharflab/tree-sitter-batch"
 
 [project.optional-dependencies]
 core = ["tree-sitter~=0.24"]
+
+[tool.setuptools_scm]
 
 [tool.cibuildwheel]
 build = "cp310-*"

@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - "v*"
+  pull_request:
+    paths:
+      - .github/workflows/publish_pypi.yml
 
 permissions:
   id-token: write
@@ -16,24 +19,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: ${{vars.PYTHON_VERSION || '3.11'}}
       - name: Set up tree-sitter CLI
         uses: tree-sitter/setup-action/cli@v2
-      - name: Install dependencies
-        run: |-
-          if jq -e "$JQ_SCRIPT" package.json >/dev/null; then
-            npm i --ignore-scripts --omit peer --omit optional
-          fi
-        env:
-          JQ_SCRIPT: >-
-            .dependencies + .devDependencies |
-            with_entries(select(
-            (.key | startswith("tree-sitter-"))
-            and (.key != "tree-sitter-cli")
-            )) | length > 0
       - name: Regenerate parser
         shell: bash
         run: |
@@ -42,12 +35,10 @@ jobs:
             tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
-        env:
-          TREE_SITTER_ABI_VERSION: 15
       - name: Install dependencies
-        run: pip install --upgrade pip build setuptools wheel
+        run: pip install --upgrade pip build
       - name: Build sources
-        run: python -mbuild -n -s
+        run: python -mbuild -s
       - name: Upload sources
         uses: actions/upload-artifact@v6
         with:
@@ -70,21 +61,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Set up tree-sitter CLI
         uses: tree-sitter/setup-action/cli@v2
-      - name: Install dependencies
-        shell: bash
-        run: |-
-          if jq -e "$JQ_SCRIPT" package.json >/dev/null; then
-            npm i --ignore-scripts --omit peer --omit optional
-          fi
-        env:
-          JQ_SCRIPT: >-
-            .dependencies + .devDependencies |
-            with_entries(select(
-            (.key | startswith("tree-sitter-"))
-            and (.key != "tree-sitter-cli")
-            )) | length > 0
       - name: Regenerate parser
         shell: bash
         run: |
@@ -94,8 +74,6 @@ jobs:
             tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
-        env:
-          TREE_SITTER_ABI_VERSION: 15
       - name: Build wheels
         uses: pypa/cibuildwheel@v3.3
         with:
@@ -114,8 +92,8 @@ jobs:
     needs: [build_sdist, build_wheels]
     runs-on: ubuntu-latest
     environment:
-      name: pypi
-      url: https://pypi.org/project/${{github.event.repository.name}}/
+      name: ${{ github.event_name == 'pull_request' && 'testpypi' || 'pypi' }}
+      url: ${{ github.event_name == 'pull_request' && format('https://test.pypi.org/project/{0}/', github.event.repository.name) || format('https://pypi.org/project/{0}/', github.event.repository.name) }}
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v7
@@ -126,4 +104,10 @@ jobs:
       - name: Check build artifacts
         run: ls -l dist
       - name: Publish to PyPI
+        if: github.event_name != 'pull_request'
         uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Publish to Test PyPI (dry run)
+        if: github.event_name == 'pull_request'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
