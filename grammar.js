@@ -4,6 +4,7 @@ const kw = (word) => token(prec(10, ci(word)));
 export default grammar({
   name: 'batch',
   extras: () => [/[ \t]/],
+  word: ($) => $.command_name,
   rules: {
     program: ($) => repeat(choice(seq($._stmt, /\r?\n/), /\r?\n/)),
     _stmt: ($) => choice(
