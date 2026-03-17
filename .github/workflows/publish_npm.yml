@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - "v*"
+  pull_request:
+    paths:
+      - .github/workflows/publish_npm.yml
 
 permissions:
   id-token: write # Required for OIDC
@@ -117,4 +120,4 @@ jobs:
       - name: Sync version from tree-sitter.json
         run: npm version --no-git-tag-version "$(jq -r .metadata.version tree-sitter.json)"
       - name: Publish to npm
-        run: npm publish
+        run: npm publish ${{ github.event_name == 'pull_request' && '--dry-run' || '' }}

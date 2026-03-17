@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - "v*"
+  pull_request:
+    paths:
+      - .github/workflows/publish_pypi.yml
 
 permissions:
   id-token: write
@@ -102,3 +105,5 @@ jobs:
         run: ls -l dist
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: ${{ github.event_name == 'pull_request' && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
