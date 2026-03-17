@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=80", "setuptools-scm>=8"]
+requires = ["setuptools>=80"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -23,8 +23,6 @@ Homepage = "https://github.com/wharflab/tree-sitter-batch"
 
 [project.optional-dependencies]
 core = ["tree-sitter~=0.24"]
-
-[tool.setuptools_scm]
 
 [tool.cibuildwheel]
 build = "cp310-*"
