@@ -36,7 +36,7 @@ jobs:
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
       - name: Install dependencies
-        run: pip install --upgrade pip build
+        run: pip install --upgrade pip build setuptools wheel
       - name: Build sources
         run: python -mbuild -n -s
       - name: Upload sources
