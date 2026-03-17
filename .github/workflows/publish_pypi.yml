@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: pip install --upgrade pip build
       - name: Build sources
-        run: python -mbuild -s
+        run: python -mbuild -n -s
       - name: Upload sources
         uses: actions/upload-artifact@v6
         with:

@@ -1,7 +1,11 @@
+import json
 from os import path
 from sysconfig import get_config_var
 
 from setuptools import Extension, find_packages, setup
+
+with open("tree-sitter.json") as f:
+    _metadata = json.load(f)["metadata"]
 from setuptools.command.build import build
 from setuptools.command.build_ext import build_ext
 from setuptools.command.egg_info import egg_info
@@ -45,6 +49,7 @@ class EggInfo(egg_info):
 
 
 setup(
+    version=_metadata["version"],
     packages=find_packages("bindings/python"),
     package_dir={"": "bindings/python"},
     package_data={
