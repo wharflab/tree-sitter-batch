@@ -54,6 +54,66 @@ Suppressed command
     (command_name)))
 
 ================
+Single quotes in arguments
+================
+
+setx PATH '%PATH%;C:\Tools'
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Single-quoted argument with echo
+================
+
+echo 'hello'
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value))))
+
+================
+Single quotes with python-style command
+================
+
+py -c 'print(123)'
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Single quotes with spaces (not quoting)
+================
+
+copy foo.txt 'bar baz.txt'
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value)
+      (argument_value))))
+
+================
 CALL subroutine
 ================
 
