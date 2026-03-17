@@ -92,8 +92,8 @@ jobs:
     needs: [build_sdist, build_wheels]
     runs-on: ubuntu-latest
     environment:
-      name: pypi
-      url: https://pypi.org/project/${{github.event.repository.name}}/
+      name: ${{ github.event_name == 'pull_request' && 'testpypi' || 'pypi' }}
+      url: ${{ github.event_name == 'pull_request' && format('https://test.pypi.org/project/{0}/', github.event.repository.name) || format('https://pypi.org/project/{0}/', github.event.repository.name) }}
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v7
