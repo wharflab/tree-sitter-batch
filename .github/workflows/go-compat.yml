@@ -1,0 +1,24 @@
+name: Go Compatibility
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  go-compat:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: stable
+
+      - name: Run Go compatibility acceptance test
+        run: bash go-compat/acceptance.sh

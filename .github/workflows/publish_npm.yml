@@ -22,21 +22,21 @@ jobs:
         with:
           cache: npm
           node-version: ${{vars.NODE_VERSION || '24'}}
+      - name: Set up tree-sitter CLI
+        uses: tree-sitter/setup-action/cli@v2
       - name: Install dependencies
         run: npm i --omit peer --omit optional
       - name: Regenerate parser
         run: |
           while read -r grammar_dir; do
             pushd "$grammar_dir"
-            npm x -- tree-sitter generate
+            tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
-        env:
-          TREE_SITTER_ABI_VERSION: 15
       - name: Build Wasm binaries
         run: |-
           while read -r grammar_dir; do
-            npm x -- tree-sitter build --wasm "$grammar_dir"
+            tree-sitter build --wasm "$grammar_dir"
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
       - name: Upload binaries
         uses: actions/upload-artifact@v6
@@ -65,6 +65,8 @@ jobs:
         with:
           cache: npm
           node-version: ${{vars.NODE_VERSION || '24'}}
+      - name: Set up tree-sitter CLI
+        uses: tree-sitter/setup-action/cli@v2
       - name: Install dependencies
         run: npm i --omit peer --omit optional
       - name: Regenerate parser
@@ -73,7 +75,7 @@ jobs:
           while read -r grammar_dir; do
             grammar_dir="${grammar_dir%$'\r'}"
             pushd "$grammar_dir"
-            npm x -- tree-sitter generate
+            tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
       - name: Build binary
@@ -112,5 +114,7 @@ jobs:
       - name: Move Wasm binaries to root
         continue-on-error: true
         run: mv -v prebuilds/*.wasm .
+      - name: Sync version from tree-sitter.json
+        run: npm version --no-git-tag-version "$(jq -r .metadata.version tree-sitter.json)"
       - name: Publish to npm
         run: npm publish

@@ -16,24 +16,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: ${{vars.PYTHON_VERSION || '3.11'}}
       - name: Set up tree-sitter CLI
         uses: tree-sitter/setup-action/cli@v2
-      - name: Install dependencies
-        run: |-
-          if jq -e "$JQ_SCRIPT" package.json >/dev/null; then
-            npm i --ignore-scripts --omit peer --omit optional
-          fi
-        env:
-          JQ_SCRIPT: >-
-            .dependencies + .devDependencies |
-            with_entries(select(
-            (.key | startswith("tree-sitter-"))
-            and (.key != "tree-sitter-cli")
-            )) | length > 0
       - name: Regenerate parser
         shell: bash
         run: |
@@ -42,8 +32,6 @@ jobs:
             tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
-        env:
-          TREE_SITTER_ABI_VERSION: 15
       - name: Install dependencies
         run: pip install --upgrade pip build setuptools wheel
       - name: Build sources
@@ -70,21 +58,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Set up tree-sitter CLI
         uses: tree-sitter/setup-action/cli@v2
-      - name: Install dependencies
-        shell: bash
-        run: |-
-          if jq -e "$JQ_SCRIPT" package.json >/dev/null; then
-            npm i --ignore-scripts --omit peer --omit optional
-          fi
-        env:
-          JQ_SCRIPT: >-
-            .dependencies + .devDependencies |
-            with_entries(select(
-            (.key | startswith("tree-sitter-"))
-            and (.key != "tree-sitter-cli")
-            )) | length > 0
       - name: Regenerate parser
         shell: bash
         run: |
@@ -94,8 +71,6 @@ jobs:
             tree-sitter generate
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
-        env:
-          TREE_SITTER_ABI_VERSION: 15
       - name: Build wheels
         uses: pypa/cibuildwheel@v3.3
         with:
