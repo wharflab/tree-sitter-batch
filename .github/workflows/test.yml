@@ -1,0 +1,17 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+      - name: Run corpus tests
+        run: tree-sitter test
