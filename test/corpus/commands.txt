@@ -95,6 +95,9 @@ py -c 'print(123)'
     (command_name)
     (argument_list
       (argument_value)
+      (argument_value)
+      (paren_expression
+        (argument_value))
       (argument_value))))
 
 ================

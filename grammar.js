@@ -84,7 +84,7 @@ export default grammar({
     for_options: () => token(prec(10, choice(ci('/d'), seq(ci('/r'), optional(seq(/[ \t]+/, /[^\s]+/))), ci('/l'), seq(ci('/f'), optional(seq(/[ \t]+/, '"', /[^"]*/, '"')))))),
     for_variable: () => token(seq('%%', optional('~'), /[a-zA-Z]/)),
     for_set: () => /[^)\r\n]+/,
-    parenthesized: ($) => seq('(', repeat(choice(seq($._stmt, /\r?\n/), /\r?\n/)), ')'),
+    parenthesized: ($) => seq('(', repeat(choice(seq($._stmt, /\r?\n/), /\r?\n/)), optional($._stmt), ')'),
     redirect_stmt: ($) => prec.right(4, seq(choice($.cmd, $.parenthesized), $.redirection)),
     redirection: ($) => prec.right(seq(
       optional(/[0-2]/), $.redirect_op, $.redirect_target,
@@ -94,8 +94,8 @@ export default grammar({
     redirect_target: () => token(choice(ci('nul'), ci('con'), /[^\s|&><\r\n]+/)),
     pipe_stmt: ($) => prec.left(3, seq(choice($.cmd, $.parenthesized), '|', choice($.cmd, $.parenthesized))),
     cond_exec: ($) => choice(
-      prec.left(2, seq(choice($.cmd, $.parenthesized), '&&', choice($.cmd, $.parenthesized))),
-      prec.left(1, seq(choice($.cmd, $.parenthesized), '||', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice($.cond_exec, $.cmd, $.parenthesized), '&&', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice($.cond_exec, $.cmd, $.parenthesized), '||', choice($.cmd, $.parenthesized))),
     ),
     variable_reference: () => token(choice(
       seq('%', /[a-zA-Z_][a-zA-Z0-9_]*/, '%'),
@@ -109,9 +109,10 @@ export default grammar({
     cmd: ($) => prec.right(5, seq(optional('@'), $.command_name, optional($.argument_list))),
     command_name: () => /[a-zA-Z_][a-zA-Z0-9_.-]*/,
     argument_list: ($) => prec.right(repeat1($._arg)),
-    _arg: ($) => choice($.string, $.variable_reference, $.command_option, $.argument_value),
+    _arg: ($) => choice($.string, $.variable_reference, $.command_option, $.paren_expression, $.argument_value),
     command_option: () => token(seq('/', /[a-zA-Z_?][a-zA-Z0-9_:]*/)),
-    argument_value: () => /[^\s|&><"\r\n%!][^\s|&><"\r\n]*/,
+    paren_expression: ($) => seq('(', repeat($._arg), ')'),
+    argument_value: () => /[^\s|&><"\r\n%!()][^\s|&><"\r\n()]*/,
     integer: () => /[0-9]+/,
   },
 });

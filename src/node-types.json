@@ -16,6 +16,10 @@
           "named": true
         },
         {
+          "type": "paren_expression",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -74,6 +78,10 @@
       "types": [
         {
           "type": "cmd",
+          "named": true
+        },
+        {
+          "type": "cond_exec",
           "named": true
         },
         {
@@ -210,6 +218,37 @@
     "type": "label",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "paren_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "argument_value",
+          "named": true
+        },
+        {
+          "type": "command_option",
+          "named": true
+        },
+        {
+          "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "parenthesized",

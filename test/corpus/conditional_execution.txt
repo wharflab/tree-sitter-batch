@@ -37,3 +37,117 @@ copy file1.txt file2.txt || echo Failed
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+Chained AND operators
+================
+
+echo one && echo two && echo three
+
+---
+
+(program
+  (cond_exec
+    (cond_exec
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value)))
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+Chained OR operators
+================
+
+echo one || echo two || echo three
+
+---
+
+(program
+  (cond_exec
+    (cond_exec
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value)))
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+Mixed AND and OR operators
+================
+
+echo one && echo two || echo three
+
+---
+
+(program
+  (cond_exec
+    (cond_exec
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value)))
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+AND with inline parenthesized right side
+================
+
+echo one && (echo two)
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (parenthesized
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))))
+
+================
+AND with multi-line parenthesized right side
+================
+
+echo one && (
+echo two
+)
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (parenthesized
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))))
