@@ -20,12 +20,13 @@ export default grammar({
       seq('::', /[^\r\n]*/),
     ))),
     label: () => token(seq(':', /[a-zA-Z_][a-zA-Z0-9_-]*/)),
-    variable_assignment: () => prec(8, seq(
-      optional('@'), kw('set'),
-      optional(seq(/[ \t]+/, /\/[aApP]/)), /[ \t]+/,
+    variable_assignment: ($) => prec(8, seq(
+      optional('@'), alias(kw('set'), $.set_keyword),
+      optional(seq(/[ \t]+/, alias(/\/[aApP]/, $.set_option))),
+      /[ \t]+/,
       choice(
-        seq('"', /[a-zA-Z_][a-zA-Z0-9_]*/, '=', optional(/[^"\r\n]*/), '"'),
-        seq(/[a-zA-Z_][a-zA-Z0-9_]*/, '=', optional(/[^\r\n]*/)),
+        seq('"', alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional(alias(/[^"\r\n]+/, $.assignment_value)), '"'),
+        seq(alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional(alias(/[^\r\n]+/, $.assignment_value))),
       ),
     )),
     if_stmt: ($) => prec.right(8, seq(

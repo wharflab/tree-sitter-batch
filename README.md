@@ -48,8 +48,10 @@ Parsed tree:
   (echo_off)
   (comment)
   (setlocal_stmt)
-  (variable_assignment)
-  (variable_assignment)
+  (variable_assignment
+    (set_keyword) (variable_name) (assignment_value))
+  (variable_assignment
+    (set_keyword) (set_option) (variable_name) (assignment_value))
   (if_stmt
     (string)
     (parenthesized

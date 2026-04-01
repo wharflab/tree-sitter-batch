@@ -8,7 +8,10 @@
 (label) @label
 
 ; Variable assignment
-(variable_assignment) @variable
+(set_keyword) @keyword
+(variable_name) @variable
+(set_option) @constant
+(assignment_value) @string
 
 ; IF/FOR/GOTO/CALL statements
 (if_stmt) @keyword
