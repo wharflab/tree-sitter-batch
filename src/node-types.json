@@ -77,6 +77,10 @@
           "named": true
         },
         {
+          "type": "cond_exec",
+          "named": true
+        },
+        {
           "type": "parenthesized",
           "named": true
         }

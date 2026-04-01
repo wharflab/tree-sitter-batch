@@ -94,8 +94,8 @@ export default grammar({
     redirect_target: () => token(choice(ci('nul'), ci('con'), /[^\s|&><\r\n]+/)),
     pipe_stmt: ($) => prec.left(3, seq(choice($.cmd, $.parenthesized), '|', choice($.cmd, $.parenthesized))),
     cond_exec: ($) => choice(
-      prec.left(2, seq(choice($.cmd, $.parenthesized), '&&', choice($.cmd, $.parenthesized))),
-      prec.left(1, seq(choice($.cmd, $.parenthesized), '||', choice($.cmd, $.parenthesized))),
+      prec.left(2, seq(choice($.cond_exec, $.cmd, $.parenthesized), '&&', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice($.cond_exec, $.cmd, $.parenthesized), '||', choice($.cmd, $.parenthesized))),
     ),
     variable_reference: () => token(choice(
       seq('%', /[a-zA-Z_][a-zA-Z0-9_]*/, '%'),

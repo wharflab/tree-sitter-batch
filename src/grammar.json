@@ -1431,6 +1431,10 @@
                 "members": [
                   {
                     "type": "SYMBOL",
+                    "name": "cond_exec"
+                  },
+                  {
+                    "type": "SYMBOL",
                     "name": "cmd"
                   },
                   {
@@ -1468,6 +1472,10 @@
               {
                 "type": "CHOICE",
                 "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "cond_exec"
+                  },
                   {
                     "type": "SYMBOL",
                     "name": "cmd"
