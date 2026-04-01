@@ -111,7 +111,27 @@ echo one && echo two || echo three
         (argument_value)))))
 
 ================
-AND with parenthesized right side
+AND with inline parenthesized right side
+================
+
+echo one && (echo two)
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (parenthesized
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))))
+
+================
+AND with multi-line parenthesized right side
 ================
 
 echo one && (
