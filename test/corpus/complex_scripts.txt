@@ -12,7 +12,10 @@ echo Hello %NAME%
 (program
   (echo_off)
   (comment)
-  (variable_assignment)
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value))
   (cmd
     (command_name)
     (argument_list

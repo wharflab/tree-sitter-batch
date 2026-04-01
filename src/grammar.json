@@ -250,15 +250,20 @@
             ]
           },
           {
-            "type": "TOKEN",
+            "type": "ALIAS",
             "content": {
-              "type": "PREC",
-              "value": 10,
+              "type": "TOKEN",
               "content": {
-                "type": "PATTERN",
-                "value": "[sS][eE][tT]"
+                "type": "PREC",
+                "value": 10,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[sS][eE][tT]"
+                }
               }
-            }
+            },
+            "named": true,
+            "value": "set_keyword"
           },
           {
             "type": "CHOICE",
@@ -271,8 +276,13 @@
                     "value": "[ \\t]+"
                   },
                   {
-                    "type": "PATTERN",
-                    "value": "\\/[aApP]"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "\\/[aApP]"
+                    },
+                    "named": true,
+                    "value": "set_option"
                   }
                 ]
               },
@@ -296,8 +306,13 @@
                     "value": "\""
                   },
                   {
-                    "type": "PATTERN",
-                    "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                    },
+                    "named": true,
+                    "value": "variable_name"
                   },
                   {
                     "type": "STRING",
@@ -307,8 +322,13 @@
                     "type": "CHOICE",
                     "members": [
                       {
-                        "type": "PATTERN",
-                        "value": "[^\"\\r\\n]*"
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "[^\"\\r\\n]+"
+                        },
+                        "named": true,
+                        "value": "assignment_value"
                       },
                       {
                         "type": "BLANK"
@@ -325,8 +345,13 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "PATTERN",
-                    "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                    },
+                    "named": true,
+                    "value": "variable_name"
                   },
                   {
                     "type": "STRING",
@@ -336,8 +361,13 @@
                     "type": "CHOICE",
                     "members": [
                       {
-                        "type": "PATTERN",
-                        "value": "[^\\r\\n]*"
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "[^\\r\\n]+"
+                        },
+                        "named": true,
+                        "value": "assignment_value"
                       },
                       {
                         "type": "BLANK"

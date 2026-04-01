@@ -470,7 +470,29 @@
   {
     "type": "variable_assignment",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_value",
+          "named": true
+        },
+        {
+          "type": "set_keyword",
+          "named": true
+        },
+        {
+          "type": "set_option",
+          "named": true
+        },
+        {
+          "type": "variable_name",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "\"",
@@ -498,6 +520,10 @@
   },
   {
     "type": "argument_value",
+    "named": true
+  },
+  {
+    "type": "assignment_value",
     "named": true
   },
   {
@@ -541,7 +567,19 @@
     "named": true
   },
   {
+    "type": "set_keyword",
+    "named": true
+  },
+  {
+    "type": "set_option",
+    "named": true
+  },
+  {
     "type": "string",
+    "named": true
+  },
+  {
+    "type": "variable_name",
     "named": true
   },
   {
