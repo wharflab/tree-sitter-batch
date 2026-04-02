@@ -100,6 +100,17 @@ pip install tree-sitter-batch
 import tree_sitter_batch "github.com/wharflab/tree-sitter-batch/bindings/go"
 ```
 
+The root package also exports the bundled `queries/highlights.scm` via `go:embed`:
+
+```go
+import batch "github.com/wharflab/tree-sitter-batch"
+
+lang := batch.GetLanguage()
+query, _ := batch.GetHighlightsQuery()
+// or access the raw .scm source:
+// raw := batch.HighlightsQuery
+```
+
 ## Usage
 
 ### Node.js
