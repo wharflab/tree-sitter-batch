@@ -31,7 +31,7 @@
 
 ; CMD pseudo/dynamic environment variables
 ((variable_reference) @variable.builtin
-  (#match? @variable.builtin "^%(CD|ERRORLEVEL|DATE|TIME|RANDOM|CMDCMDLINE|CMDEXTVERSION|HIGHESTNUMANODENUMBER|__APPDIR__|__CD__)%$"))
+  (#match? @variable.builtin "(?i)^[%!](CD|ERRORLEVEL|DATE|TIME|RANDOM|CMDCMDLINE|CMDEXTVERSION|HIGHESTNUMANODENUMBER|__APPDIR__|__CD__)[%!]$"))
 
 ; Variables
 (variable_reference) @variable
