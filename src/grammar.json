@@ -89,6 +89,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "command_sep"
+        },
+        {
+          "type": "SYMBOL",
           "name": "parenthesized"
         },
         {
@@ -1477,6 +1481,10 @@
                   },
                   {
                     "type": "SYMBOL",
+                    "name": "pipe_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
                     "name": "cmd"
                   },
                   {
@@ -1520,6 +1528,10 @@
                   },
                   {
                     "type": "SYMBOL",
+                    "name": "pipe_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
                     "name": "cmd"
                   },
                   {
@@ -1549,6 +1561,65 @@
           }
         }
       ]
+    },
+    "command_sep": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "command_sep"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cond_exec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "pipe_stmt"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cmd"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "&"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "cond_exec"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "pipe_stmt"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cmd"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized"
+              }
+            ]
+          }
+        ]
+      }
     },
     "variable_reference": {
       "type": "TOKEN",
@@ -1807,7 +1878,7 @@
     },
     "argument_value": {
       "type": "PATTERN",
-      "value": "[^\\s|&><\"\\r\\n%!()][^\\s|&><\"\\r\\n()]*"
+      "value": "(\\^[&|<>^()]|[^\\s|&><\"\\r\\n%!()])(\\^[&|<>^()]|[^\\s|&><\"\\r\\n()])*"
     },
     "integer": {
       "type": "PATTERN",
