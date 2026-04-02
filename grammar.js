@@ -1,5 +1,6 @@
 const ci = (word) => new RegExp(word.split('').map((c) => /[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c).join(''));
 const kw = (word) => token(prec(10, ci(word)));
+const operand = ($) => [$.cond_exec, $.pipe_stmt, $.cmd, $.parenthesized];
 
 export default grammar({
   name: 'batch',
@@ -95,13 +96,13 @@ export default grammar({
     redirect_target: () => token(choice(ci('nul'), ci('con'), /[^\s|&><\r\n]+/)),
     pipe_stmt: ($) => prec.left(3, seq(choice($.cmd, $.parenthesized), '|', choice($.cmd, $.parenthesized))),
     cond_exec: ($) => choice(
-      prec.left(1, seq(choice($.cond_exec, $.pipe_stmt, $.cmd, $.parenthesized), '&&', choice($.cmd, $.parenthesized))),
-      prec.left(1, seq(choice($.cond_exec, $.pipe_stmt, $.cmd, $.parenthesized), '||', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '&&', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '||', choice($.cmd, $.parenthesized))),
     ),
     command_sep: ($) => prec.left(0, seq(
-      choice($.command_sep, $.cond_exec, $.pipe_stmt, $.cmd, $.parenthesized),
+      choice($.command_sep, ...operand($)),
       '&',
-      choice($.cond_exec, $.pipe_stmt, $.cmd, $.parenthesized),
+      choice(...operand($)),
     )),
     variable_reference: () => token(choice(
       seq('%', /[a-zA-Z_][a-zA-Z0-9_]*/, '%'),
@@ -118,7 +119,7 @@ export default grammar({
     _arg: ($) => choice($.string, $.variable_reference, $.command_option, $.paren_expression, $.argument_value),
     command_option: () => token(seq('/', /[a-zA-Z_?][a-zA-Z0-9_:]*/)),
     paren_expression: ($) => seq('(', repeat($._arg), ')'),
-    argument_value: () => /(\^[&|<>^()]|[^\s|&><"\r\n%!()])(\^[&|<>^()]|[^\s|&><"\r\n()])*/,
+    argument_value: () => /(?:\^[&|<>^()]|[^\s|&><"\r\n%!()])(?:\^[&|<>^()]|[^\s|&><"\r\n()])*/,
     integer: () => /[0-9]+/,
   },
 });
