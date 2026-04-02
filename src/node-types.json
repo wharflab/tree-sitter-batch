@@ -69,6 +69,37 @@
     }
   },
   {
+    "type": "command_sep",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cmd",
+          "named": true
+        },
+        {
+          "type": "command_sep",
+          "named": true
+        },
+        {
+          "type": "cond_exec",
+          "named": true
+        },
+        {
+          "type": "parenthesized",
+          "named": true
+        },
+        {
+          "type": "pipe_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "cond_exec",
     "named": true,
     "fields": {},
@@ -86,6 +117,10 @@
         },
         {
           "type": "parenthesized",
+          "named": true
+        },
+        {
+          "type": "pipe_stmt",
           "named": true
         }
       ]
@@ -267,6 +302,10 @@
           "named": true
         },
         {
+          "type": "command_sep",
+          "named": true
+        },
+        {
           "type": "comment",
           "named": true
         },
@@ -359,6 +398,10 @@
         },
         {
           "type": "cmd",
+          "named": true
+        },
+        {
+          "type": "command_sep",
           "named": true
         },
         {
@@ -496,6 +539,10 @@
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "&",
     "named": false
   },
   {

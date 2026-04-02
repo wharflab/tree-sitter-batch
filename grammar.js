@@ -1,5 +1,6 @@
 const ci = (word) => new RegExp(word.split('').map((c) => /[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c).join(''));
 const kw = (word) => token(prec(10, ci(word)));
+const operand = ($) => [$.cond_exec, $.pipe_stmt, $.cmd, $.parenthesized];
 
 export default grammar({
   name: 'batch',
@@ -11,7 +12,7 @@ export default grammar({
       $.echo_off, $.comment, $.label, $.variable_assignment,
       $.if_stmt, $.goto_stmt, $.call_stmt, $.exit_stmt,
       $.setlocal_stmt, $.endlocal_stmt, $.for_stmt,
-      $.redirect_stmt, $.pipe_stmt, $.cond_exec,
+      $.redirect_stmt, $.pipe_stmt, $.cond_exec, $.command_sep,
       $.parenthesized, $.cmd,
     ),
     echo_off: () => prec(10, seq('@', kw('echo'), choice(kw('off'), kw('on')))),
@@ -95,9 +96,14 @@ export default grammar({
     redirect_target: () => token(choice(ci('nul'), ci('con'), /[^\s|&><\r\n]+/)),
     pipe_stmt: ($) => prec.left(3, seq(choice($.cmd, $.parenthesized), '|', choice($.cmd, $.parenthesized))),
     cond_exec: ($) => choice(
-      prec.left(1, seq(choice($.cond_exec, $.cmd, $.parenthesized), '&&', choice($.cmd, $.parenthesized))),
-      prec.left(1, seq(choice($.cond_exec, $.cmd, $.parenthesized), '||', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '&&', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '||', choice($.cmd, $.parenthesized))),
     ),
+    command_sep: ($) => prec.left(0, seq(
+      choice($.command_sep, ...operand($)),
+      '&',
+      choice(...operand($)),
+    )),
     variable_reference: () => token(choice(
       seq('%', /[a-zA-Z_][a-zA-Z0-9_]*/, '%'),
       seq('%~', /[a-zA-Z]*/, /[0-9]/),
@@ -113,7 +119,7 @@ export default grammar({
     _arg: ($) => choice($.string, $.variable_reference, $.command_option, $.paren_expression, $.argument_value),
     command_option: () => token(seq('/', /[a-zA-Z_?][a-zA-Z0-9_:]*/)),
     paren_expression: ($) => seq('(', repeat($._arg), ')'),
-    argument_value: () => /[^\s|&><"\r\n%!()][^\s|&><"\r\n()]*/,
+    argument_value: () => /(?:\^[&|<>^()]|[^\s|&><"\r\n%!()])(?:\^[&|<>^()]|[^\s|&><"\r\n()])*/,
     integer: () => /[0-9]+/,
   },
 });

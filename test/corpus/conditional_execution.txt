@@ -151,3 +151,94 @@ echo two
         (command_name)
         (argument_list
           (argument_value))))))
+
+================
+Caret-escaped && splits into escaped & and command separator
+================
+
+echo foo ^&& echo bar && echo baz
+
+---
+
+(program
+  (command_sep
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)
+        (argument_value)))
+    (cond_exec
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value)))
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))))
+
+================
+Caret-escaped || splits into escaped | and pipe
+================
+
+echo foo ^|| echo bar && echo baz
+
+---
+
+(program
+  (cond_exec
+    (pipe_stmt
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value)
+          (argument_value)))
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+Double caret-escaped ^&^& keeps both as argument text
+================
+
+echo foo ^&^& echo bar && echo baz
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)
+        (argument_value)
+        (argument_value)
+        (argument_value)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+Simple command separator with &
+================
+
+echo one & echo two
+
+---
+
+(program
+  (command_sep
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
