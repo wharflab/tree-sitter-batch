@@ -94,7 +94,7 @@ export default grammar({
     )),
     redirect_op: () => token(choice('2>&1', '>&1', '2>>', '2>', '>>', '>', '<')),
     redirect_target: () => token(choice(ci('nul'), ci('con'), /[^\s|&><\r\n]+/)),
-    pipe_stmt: ($) => prec.left(3, seq(choice($.cmd, $.parenthesized), '|', choice($.cmd, $.parenthesized))),
+    pipe_stmt: ($) => prec.left(3, seq(choice($.redirect_stmt, $.cmd, $.parenthesized), '|', choice($.cmd, $.parenthesized), optional($.redirection))),
     cond_exec: ($) => choice(
       prec.left(1, seq(choice(...operand($)), '&&', choice($.cmd, $.parenthesized))),
       prec.left(1, seq(choice(...operand($)), '||', choice($.cmd, $.parenthesized))),
