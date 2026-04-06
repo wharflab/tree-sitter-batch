@@ -1456,23 +1456,15 @@
             "members": [
               {
                 "type": "SYMBOL",
+                "name": "redirect_stmt"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "cmd"
               },
               {
                 "type": "SYMBOL",
                 "name": "parenthesized"
-              }
-            ]
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "redirection"
-              },
-              {
-                "type": "BLANK"
               }
             ]
           }

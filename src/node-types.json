@@ -383,10 +383,6 @@
         {
           "type": "redirect_stmt",
           "named": true
-        },
-        {
-          "type": "redirection",
-          "named": true
         }
       ]
     }
