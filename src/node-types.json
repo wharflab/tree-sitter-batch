@@ -379,6 +379,10 @@
         {
           "type": "parenthesized",
           "named": true
+        },
+        {
+          "type": "redirect_stmt",
+          "named": true
         }
       ]
     }
