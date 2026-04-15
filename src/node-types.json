@@ -77,6 +77,10 @@
       "required": true,
       "types": [
         {
+          "type": "call_stmt",
+          "named": true
+        },
+        {
           "type": "cmd",
           "named": true
         },
@@ -95,6 +99,10 @@
         {
           "type": "pipe_stmt",
           "named": true
+        },
+        {
+          "type": "redirect_stmt",
+          "named": true
         }
       ]
     }
@@ -107,6 +115,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "call_stmt",
+          "named": true
+        },
         {
           "type": "cmd",
           "named": true
@@ -121,6 +133,10 @@
         },
         {
           "type": "pipe_stmt",
+          "named": true
+        },
+        {
+          "type": "redirect_stmt",
           "named": true
         }
       ]
@@ -373,11 +389,19 @@
       "required": true,
       "types": [
         {
+          "type": "call_stmt",
+          "named": true
+        },
+        {
           "type": "cmd",
           "named": true
         },
         {
           "type": "parenthesized",
+          "named": true
+        },
+        {
+          "type": "pipe_stmt",
           "named": true
         },
         {
@@ -476,6 +500,10 @@
       "required": true,
       "types": [
         {
+          "type": "call_stmt",
+          "named": true
+        },
+        {
           "type": "cmd",
           "named": true
         },
@@ -498,6 +526,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "fd_redirect",
+          "named": true
+        },
         {
           "type": "redirect_op",
           "named": true
@@ -591,6 +623,10 @@
   },
   {
     "type": "comparison_op",
+    "named": true
+  },
+  {
+    "type": "fd_redirect",
     "named": true
   },
   {

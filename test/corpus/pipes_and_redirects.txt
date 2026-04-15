@@ -64,3 +64,143 @@ dir 2>nul
     (redirection
       (redirect_op)
       (redirect_target))))
+
+================
+Stdin redirect with file descriptor
+================
+
+sort 0<input.txt
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (redirect_op)
+      (redirect_target))))
+
+================
+Chained pipes
+================
+
+type file.txt | sort | more
+
+---
+
+(program
+  (pipe_stmt
+    (pipe_stmt
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value)))
+      (cmd
+        (command_name)))
+    (cmd
+      (command_name))))
+
+================
+Redirect fd to fd (2>&1)
+================
+
+cmd 2>&1
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (fd_redirect))))
+
+================
+Redirect to file then fd
+================
+
+cmd >nul 2>&1
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (redirect_op)
+      (redirect_target)
+      (fd_redirect))))
+
+================
+Redirect with echo then fd
+================
+
+echo out > file.txt 2>&1
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (redirection
+      (redirect_op)
+      (redirect_target)
+      (fd_redirect))))
+
+================
+CALL with redirect
+================
+
+call foo > log.txt
+
+---
+
+(program
+  (redirect_stmt
+    (call_stmt
+      (command_name))
+    (redirection
+      (redirect_op)
+      (redirect_target))))
+
+================
+Multiple redirections
+================
+
+cmd >out.txt 2>err.txt <in.txt
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (redirect_op)
+      (redirect_target)
+      (redirect_op)
+      (redirect_target)
+      (redirect_op)
+      (redirect_target))))
+
+================
+CALL in pipe
+================
+
+call foo | findstr bar
+
+---
+
+(program
+  (pipe_stmt
+    (call_stmt
+      (command_name))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

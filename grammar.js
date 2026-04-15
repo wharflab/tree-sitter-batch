@@ -1,6 +1,6 @@
 const ci = (word) => new RegExp(word.split('').map((c) => /[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c).join(''));
 const kw = (word) => token(prec(10, ci(word)));
-const operand = ($) => [$.cond_exec, $.pipe_stmt, $.cmd, $.parenthesized];
+const operand = ($) => [$.cond_exec, $.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized];
 
 export default grammar({
   name: 'batch',
@@ -83,21 +83,23 @@ export default grammar({
       kw('in'), '(', optional($.for_set), ')', kw('do'),
       choice($.parenthesized, $.cmd),
     )),
-    for_options: () => token(prec(10, choice(ci('/d'), seq(ci('/r'), optional(seq(/[ \t]+/, /[^\s]+/))), ci('/l'), seq(ci('/f'), optional(seq(/[ \t]+/, '"', /[^"]*/, '"')))))),
+    for_options: () => token(prec(10, choice(ci('/d'), seq(ci('/r'), optional(seq(/[ \t]+/, /(%[^\s%]|[^\s%])+%?/))), ci('/l'), seq(ci('/f'), optional(seq(/[ \t]+/, '"', /[^"]*/, '"')))))),
     for_variable: () => token(seq('%%', optional('~'), /[a-zA-Z]/)),
     for_set: () => /[^)\r\n]+/,
     parenthesized: ($) => seq('(', repeat(choice(seq($._stmt, /\r?\n/), /\r?\n/)), optional($._stmt), ')'),
-    redirect_stmt: ($) => prec.right(4, seq(choice($.cmd, $.parenthesized), $.redirection)),
-    redirection: ($) => prec.right(seq(
-      optional(/[0-2]/), $.redirect_op, $.redirect_target,
-      optional(seq(optional(/[0-2]/), $.redirect_op, $.redirect_target)),
-    )),
-    redirect_op: () => token(choice('2>&1', '>&1', '2>>', '2>', '>>', '>', '<')),
+    redirect_stmt: ($) => prec.right(4, seq(choice($.call_stmt, $.cmd, $.parenthesized), $.redirection)),
+    redirection: ($) => {
+      const file_redir = seq(optional(/[0-2]/), $.redirect_op, $.redirect_target);
+      const one_redir = choice(file_redir, $.fd_redirect);
+      return prec.right(repeat1(one_redir));
+    },
+    fd_redirect: () => token(choice('2>&1', '>&1')),
+    redirect_op: () => token(choice('2>>', '2>', '>>', '>', '<')),
     redirect_target: () => token(choice(ci('nul'), ci('con'), /[^\s|&><\r\n]+/)),
-    pipe_stmt: ($) => prec.left(3, seq(choice($.redirect_stmt, $.cmd, $.parenthesized), '|', choice($.redirect_stmt, $.cmd, $.parenthesized))),
+    pipe_stmt: ($) => prec.left(3, seq(choice($.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized), '|', choice($.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized))),
     cond_exec: ($) => choice(
-      prec.left(1, seq(choice(...operand($)), '&&', choice($.cmd, $.parenthesized))),
-      prec.left(1, seq(choice(...operand($)), '||', choice($.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '&&', choice($.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '||', choice($.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized))),
     ),
     command_sep: ($) => prec.left(0, seq(
       choice($.command_sep, ...operand($)),

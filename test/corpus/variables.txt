@@ -81,3 +81,89 @@ set "MY_VAR="
   (variable_assignment
     (set_keyword)
     (variable_name)))
+
+================
+Positional parameters in arguments
+================
+
+echo %1 %2 %~f1
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference)
+      (variable_reference)
+      (variable_reference))))
+
+================
+Parameter modifier %~dp0
+================
+
+echo %~dp0
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion variable
+================
+
+echo !MY_VAR!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Substring extraction
+================
+
+echo %VAR:~0,5%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+String replacement in variable
+================
+
+echo %PATH:old=new%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+FOR loop variable in arguments
+================
+
+echo %%i
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
