@@ -1521,7 +1521,15 @@
                 "members": [
                   {
                     "type": "SYMBOL",
+                    "name": "pipe_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
                     "name": "redirect_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "call_stmt"
                   },
                   {
                     "type": "SYMBOL",
@@ -1580,7 +1588,15 @@
                 "members": [
                   {
                     "type": "SYMBOL",
+                    "name": "pipe_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
                     "name": "redirect_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "call_stmt"
                   },
                   {
                     "type": "SYMBOL",

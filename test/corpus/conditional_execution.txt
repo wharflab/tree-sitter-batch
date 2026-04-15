@@ -326,3 +326,41 @@ call mvn clean package -q || echo failed
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+AND with call on right side
+================
+
+echo test && call :sub
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (call_stmt)))
+
+================
+AND with pipe on right side
+================
+
+echo test && dir | find "x"
+
+---
+
+(program
+  (cond_exec
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (pipe_stmt
+      (cmd
+        (command_name))
+      (cmd
+        (command_name)
+        (argument_list
+          (string))))))

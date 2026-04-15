@@ -98,8 +98,8 @@ export default grammar({
     redirect_target: () => token(choice(ci('nul'), ci('con'), /[^\s|&><\r\n]+/)),
     pipe_stmt: ($) => prec.left(3, seq(choice($.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized), '|', choice($.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized))),
     cond_exec: ($) => choice(
-      prec.left(1, seq(choice(...operand($)), '&&', choice($.redirect_stmt, $.cmd, $.parenthesized))),
-      prec.left(1, seq(choice(...operand($)), '||', choice($.redirect_stmt, $.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '&&', choice($.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized))),
+      prec.left(1, seq(choice(...operand($)), '||', choice($.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized))),
     ),
     command_sep: ($) => prec.left(0, seq(
       choice($.command_sep, ...operand($)),
