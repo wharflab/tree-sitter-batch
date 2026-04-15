@@ -51,10 +51,14 @@ export default grammar({
     assignment_value: ($) => prec.right(repeat1(choice(
       $.variable_reference,
       alias(/[^%!\r\n]+/, $.assignment_literal),
+      alias('%', $.assignment_literal),
+      alias('!', $.assignment_literal),
     ))),
     quoted_assignment_value: ($) => prec.right(repeat1(choice(
       $.variable_reference,
       alias(/[^%!"\r\n]+/, $.assignment_literal),
+      alias('%', $.assignment_literal),
+      alias('!', $.assignment_literal),
     ))),
     if_stmt: ($) => prec.right(8, seq(
       optional('@'), kw('if'),
@@ -114,6 +118,8 @@ export default grammar({
     for_set: ($) => prec.right(repeat1(choice(
       $.variable_reference,
       alias(/[^%!)\r\n]+/, $.for_set_literal),
+      alias('%', $.for_set_literal),
+      alias('!', $.for_set_literal),
     ))),
     parenthesized: ($) => seq('(', repeat(choice(seq($._stmt, /\r?\n/), /\r?\n/)), optional($._stmt), ')'),
     redirect_stmt: ($) => prec.right(4, seq(choice($.call_stmt, $.cmd, $.parenthesized), $.redirection)),

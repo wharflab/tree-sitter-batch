@@ -249,6 +249,38 @@ SET gimp_loc="%userprofile%\AppData\Local\Programs\GIMP" "%programfiles(x86)%\GI
       (assignment_literal))))
 
 ================
+SET value with trailing literal percent
+================
+
+set var=100%
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal)
+      (assignment_literal))))
+
+================
+SET value with literal exclamation
+================
+
+set msg=Hello World!
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal)
+      (assignment_literal))))
+
+================
 Positional parameters in arguments
 ================
 
