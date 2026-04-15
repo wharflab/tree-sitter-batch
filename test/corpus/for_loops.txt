@@ -68,3 +68,21 @@ for /r %%f in (*.log) do echo %%f
       (command_name)
       (argument_list
         (variable_reference)))))
+
+================
+FOR /R with env var path
+================
+
+for /r %TEMP% %%i in (*.tmp) do echo %%i
+
+---
+
+(program
+  (for_stmt
+    (for_options)
+    (for_variable)
+    (for_set)
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))

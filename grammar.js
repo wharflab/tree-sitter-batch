@@ -83,7 +83,7 @@ export default grammar({
       kw('in'), '(', optional($.for_set), ')', kw('do'),
       choice($.parenthesized, $.cmd),
     )),
-    for_options: () => token(prec(10, choice(ci('/d'), seq(ci('/r'), optional(seq(/[ \t]+/, /[^\s%]+/))), ci('/l'), seq(ci('/f'), optional(seq(/[ \t]+/, '"', /[^"]*/, '"')))))),
+    for_options: () => token(prec(10, choice(ci('/d'), seq(ci('/r'), optional(seq(/[ \t]+/, /(%[^\s%]|[^\s%])+%?/))), ci('/l'), seq(ci('/f'), optional(seq(/[ \t]+/, '"', /[^"]*/, '"')))))),
     for_variable: () => token(seq('%%', optional('~'), /[a-zA-Z]/)),
     for_set: () => /[^)\r\n]+/,
     parenthesized: ($) => seq('(', repeat(choice(seq($._stmt, /\r?\n/), /\r?\n/)), optional($._stmt), ')'),
