@@ -91,7 +91,7 @@ export default grammar({
     redirection: ($) => {
       const file_redir = seq(optional(/[0-2]/), $.redirect_op, $.redirect_target);
       const one_redir = choice(file_redir, $.fd_redirect);
-      return prec.right(seq(one_redir, optional(one_redir)));
+      return prec.right(repeat1(one_redir));
     },
     fd_redirect: () => token(choice('2>&1', '>&1')),
     redirect_op: () => token(choice('2>>', '2>', '>>', '>', '<')),

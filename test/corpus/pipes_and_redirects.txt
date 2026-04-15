@@ -169,6 +169,26 @@ call foo > log.txt
       (redirect_target))))
 
 ================
+Multiple redirections
+================
+
+cmd >out.txt 2>err.txt <in.txt
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (redirect_op)
+      (redirect_target)
+      (redirect_op)
+      (redirect_target)
+      (redirect_op)
+      (redirect_target))))
+
+================
 CALL in pipe
 ================
 
