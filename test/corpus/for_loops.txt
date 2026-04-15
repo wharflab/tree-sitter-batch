@@ -9,7 +9,64 @@ for %%i in (*.txt) do echo %%i
 (program
   (for_stmt
     (for_variable)
-    (for_set)
+    (for_set
+      (for_set_literal))
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))
+
+================
+FOR with variable reference in set
+================
+
+for %%a in (%gimp_loc%) do echo %%a
+
+---
+
+(program
+  (for_stmt
+    (for_variable)
+    (for_set
+      (variable_reference))
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))
+
+================
+FOR with multiple variable references in set
+================
+
+for %%a in (%path_a% %path_b%) do echo %%a
+
+---
+
+(program
+  (for_stmt
+    (for_variable)
+    (for_set
+      (variable_reference)
+      (for_set_literal)
+      (variable_reference))
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))
+
+================
+FOR with delayed expansion variable in set
+================
+
+for %%a in (!my_list!) do echo %%a
+
+---
+
+(program
+  (for_stmt
+    (for_variable)
+    (for_set
+      (variable_reference))
     (cmd
       (command_name)
       (argument_list
@@ -27,7 +84,8 @@ for /l %%i in (1,1,10) do echo %%i
   (for_stmt
     (for_options)
     (for_variable)
-    (for_set)
+    (for_set
+      (for_set_literal))
     (cmd
       (command_name)
       (argument_list
@@ -45,7 +103,8 @@ for /f "tokens=1,2 delims=," %%a in (data.csv) do echo %%a
   (for_stmt
     (for_options)
     (for_variable)
-    (for_set)
+    (for_set
+      (for_set_literal))
     (cmd
       (command_name)
       (argument_list
@@ -63,7 +122,8 @@ for /r %%f in (*.log) do echo %%f
   (for_stmt
     (for_options)
     (for_variable)
-    (for_set)
+    (for_set
+      (for_set_literal))
     (cmd
       (command_name)
       (argument_list
@@ -81,7 +141,8 @@ for /r %TEMP% %%i in (*.tmp) do echo %%i
   (for_stmt
     (for_options)
     (for_variable)
-    (for_set)
+    (for_set
+      (for_set_literal))
     (cmd
       (command_name)
       (argument_list

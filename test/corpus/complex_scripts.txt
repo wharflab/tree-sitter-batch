@@ -15,7 +15,8 @@ echo Hello %NAME%
   (variable_assignment
     (set_keyword)
     (variable_name)
-    (assignment_value))
+    (quoted_assignment_value
+      (assignment_literal)))
   (cmd
     (command_name)
     (argument_list

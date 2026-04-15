@@ -11,7 +11,8 @@
 (set_keyword) @keyword
 (variable_name) @variable
 (set_option) @constant
-(assignment_value) @string
+(assignment_literal) @string
+(arithmetic_expression) @string
 
 ; IF/FOR/GOTO/CALL statements
 (if_stmt) @keyword
@@ -36,6 +37,9 @@
 
 ; Variables
 (variable_reference) @variable
+
+; FOR set literal content
+(for_set_literal) @string
 
 ; FOR loop variables
 (for_variable) @variable.parameter

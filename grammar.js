@@ -23,13 +23,39 @@ export default grammar({
     label: () => token(seq(':', /[a-zA-Z_][a-zA-Z0-9_-]*/)),
     variable_assignment: ($) => prec(8, seq(
       optional('@'), alias(kw('set'), $.set_keyword),
-      optional(seq(/[ \t]+/, alias(/\/[aApP]/, $.set_option))),
-      /[ \t]+/,
       choice(
-        seq('"', alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional(alias(/[^"\r\n]+/, $.assignment_value)), '"'),
-        seq(alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional(alias(/[^\r\n]+/, $.assignment_value))),
+        $.arithmetic_assignment,
+        $.prompt_assignment,
+        seq(
+          /[ \t]+/,
+          choice(
+            seq('"', alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional($.quoted_assignment_value), '"'),
+            seq(alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional($.assignment_value)),
+          ),
+        ),
       ),
     )),
+    arithmetic_assignment: ($) => seq(
+      /[ \t]+/, alias(token(prec(10, ci('/a'))), $.set_option),
+      $.arithmetic_expression,
+    ),
+    prompt_assignment: ($) => seq(
+      /[ \t]+/, alias(token(prec(10, ci('/p'))), $.set_option),
+      /[ \t]+/,
+      alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional($.assignment_value),
+    ),
+    arithmetic_expression: () => token(choice(
+      seq(/[ \t]+/, '"', /[^"\r\n]*/, '"'),
+      seq(/[ \t]+/, /[^\r\n"]+/),
+    )),
+    assignment_value: ($) => prec.right(repeat1(choice(
+      $.variable_reference,
+      alias(/[^%!\r\n]+/, $.assignment_literal),
+    ))),
+    quoted_assignment_value: ($) => prec.right(repeat1(choice(
+      $.variable_reference,
+      alias(/[^%!"\r\n]+/, $.assignment_literal),
+    ))),
     if_stmt: ($) => prec.right(8, seq(
       optional('@'), kw('if'),
       optional(kw('not')),
@@ -85,7 +111,10 @@ export default grammar({
     )),
     for_options: () => token(prec(10, choice(ci('/d'), seq(ci('/r'), optional(seq(/[ \t]+/, /(%[^\s%]|[^\s%])+%?/))), ci('/l'), seq(ci('/f'), optional(seq(/[ \t]+/, '"', /[^"]*/, '"')))))),
     for_variable: () => token(seq('%%', optional('~'), /[a-zA-Z]/)),
-    for_set: () => /[^)\r\n]+/,
+    for_set: ($) => prec.right(repeat1(choice(
+      $.variable_reference,
+      alias(/[^%!)\r\n]+/, $.for_set_literal),
+    ))),
     parenthesized: ($) => seq('(', repeat(choice(seq($._stmt, /\r?\n/), /\r?\n/)), optional($._stmt), ')'),
     redirect_stmt: ($) => prec.right(4, seq(choice($.call_stmt, $.cmd, $.parenthesized), $.redirection)),
     redirection: ($) => {
@@ -107,12 +136,12 @@ export default grammar({
       choice(...operand($)),
     )),
     variable_reference: () => token(choice(
-      seq('%', /[a-zA-Z_][a-zA-Z0-9_]*/, '%'),
+      seq('%', /[a-zA-Z_][a-zA-Z0-9_()\[\]]*/, '%'),
       seq('%~', /[a-zA-Z]*/, /[0-9]/),
       seq('%', /[0-9]/),
       seq('%%', optional('~'), /[a-zA-Z]/),
       seq('!', /[a-zA-Z_][a-zA-Z0-9_]*/, '!'),
-      seq('%', /[a-zA-Z_][a-zA-Z0-9_]*/, ':', /[^%]+/, '%'),
+      seq('%', /[a-zA-Z_][a-zA-Z0-9_()\[\]]*/, ':', /[^%]+/, '%'),
     )),
     string: () => token(seq('"', /[^"\r\n]*/, '"')),
     cmd: ($) => prec.right(5, seq(optional('@'), $.command_name, optional($.argument_list))),
