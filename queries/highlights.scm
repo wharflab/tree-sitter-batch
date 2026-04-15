@@ -25,6 +25,7 @@
 ; Operators
 (comparison_op) @operator
 (redirect_op) @operator
+(fd_redirect) @operator
 
 ; Commands
 (command_name) @function

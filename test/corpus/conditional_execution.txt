@@ -242,3 +242,87 @@ echo one & echo two
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+Redirect then AND
+================
+
+cmd > out.txt && echo done
+
+---
+
+(program
+  (cond_exec
+    (redirect_stmt
+      (cmd
+        (command_name))
+      (redirection
+        (redirect_op)
+        (redirect_target)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+Redirect then OR
+================
+
+cmd > out.txt || echo fail
+
+---
+
+(program
+  (cond_exec
+    (redirect_stmt
+      (cmd
+        (command_name))
+      (redirection
+        (redirect_op)
+        (redirect_target)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+Redirect then command separator
+================
+
+cmd > out.txt & echo two
+
+---
+
+(program
+  (command_sep
+    (redirect_stmt
+      (cmd
+        (command_name))
+      (redirection
+        (redirect_op)
+        (redirect_target)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+CALL then OR
+================
+
+call mvn clean package -q || echo failed
+
+---
+
+(program
+  (cond_exec
+    (call_stmt
+      (command_name)
+      (argument_list
+        (argument_value)
+        (argument_value)
+        (argument_value)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

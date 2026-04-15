@@ -15,3 +15,5 @@ jobs:
         uses: tree-sitter/setup-action/cli@v2
       - name: Run corpus tests
         run: tree-sitter test
+      - name: Parse example .bat files (integration test)
+        run: tree-sitter parse examples/*.bat --quiet --stat

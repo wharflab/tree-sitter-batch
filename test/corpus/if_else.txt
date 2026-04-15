@@ -75,3 +75,43 @@ echo found
           (command_name)
           (argument_list
             (argument_value)))))))
+
+================
+Nested IF ELSE
+================
+
+if exist "a.txt" (
+if exist "b.txt" (
+echo both
+) else (
+echo only-a
+)
+) else (
+echo none
+)
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (parenthesized
+      (if_stmt
+        (string)
+        (parenthesized
+          (cmd
+            (command_name)
+            (argument_list
+              (argument_value))))
+        (else_clause
+          (parenthesized
+            (cmd
+              (command_name)
+              (argument_list
+                (argument_value)))))))
+    (else_clause
+      (parenthesized
+        (cmd
+          (command_name)
+          (argument_list
+            (argument_value)))))))

@@ -128,3 +128,18 @@ call :subroutine arg1
   (call_stmt
     (argument_list
       (argument_value))))
+
+================
+CALL external script
+================
+
+call other.bat arg1 arg2
+
+---
+
+(program
+  (call_stmt
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
