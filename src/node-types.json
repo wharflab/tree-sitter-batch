@@ -31,6 +31,44 @@
     }
   },
   {
+    "type": "arithmetic_assignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arithmetic_expression",
+          "named": true
+        },
+        {
+          "type": "set_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assignment_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_literal",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "call_stmt",
     "named": true,
     "fields": {},
@@ -181,6 +219,25 @@
       "types": [
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "for_set_literal",
           "named": true
         },
         {
@@ -492,6 +549,48 @@
     }
   },
   {
+    "type": "prompt_assignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_value",
+          "named": true
+        },
+        {
+          "type": "set_option",
+          "named": true
+        },
+        {
+          "type": "variable_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quoted_assignment_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_literal",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "redirect_stmt",
     "named": true,
     "fields": {},
@@ -555,15 +654,23 @@
       "required": true,
       "types": [
         {
+          "type": "arithmetic_assignment",
+          "named": true
+        },
+        {
           "type": "assignment_value",
           "named": true
         },
         {
-          "type": "set_keyword",
+          "type": "prompt_assignment",
           "named": true
         },
         {
-          "type": "set_option",
+          "type": "quoted_assignment_value",
+          "named": true
+        },
+        {
+          "type": "set_keyword",
           "named": true
         },
         {
@@ -606,7 +713,11 @@
     "named": true
   },
   {
-    "type": "assignment_value",
+    "type": "arithmetic_expression",
+    "named": true
+  },
+  {
+    "type": "assignment_literal",
     "named": true
   },
   {
@@ -634,7 +745,7 @@
     "named": true
   },
   {
-    "type": "for_set",
+    "type": "for_set_literal",
     "named": true
   },
   {

@@ -10,7 +10,8 @@ set MY_VAR=hello
   (variable_assignment
     (set_keyword)
     (variable_name)
-    (assignment_value)))
+    (assignment_value
+      (assignment_literal))))
 
 ================
 SET quoted variable
@@ -24,7 +25,8 @@ set "MY_VAR=hello world"
   (variable_assignment
     (set_keyword)
     (variable_name)
-    (assignment_value)))
+    (quoted_assignment_value
+      (assignment_literal))))
 
 ================
 SET /a arithmetic
@@ -37,9 +39,69 @@ set /a result=5
 (program
   (variable_assignment
     (set_keyword)
-    (set_option)
-    (variable_name)
-    (assignment_value)))
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
+
+================
+SET /a complex expression
+================
+
+set /a x=y+1
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
+
+================
+SET /a quoted expression
+================
+
+set /a "a=b*c"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
+
+================
+SET /a quoted arithmetic percent is not a variable reference
+================
+
+set /a "x %=5"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
+
+================
+SET /a quoted without space before expression
+================
+
+set /a"x=1"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
 
 ================
 SET /p prompt
@@ -52,9 +114,75 @@ set /p answer=Enter value:
 (program
   (variable_assignment
     (set_keyword)
-    (set_option)
-    (variable_name)
-    (assignment_value)))
+    (prompt_assignment
+      (set_option)
+      (variable_name)
+      (assignment_value
+        (assignment_literal)))))
+
+================
+SET /p empty prompt
+================
+
+set /p name=
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (prompt_assignment
+      (set_option)
+      (variable_name))))
+
+================
+SET /a without space before switch
+================
+
+set/a x=1
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
+
+================
+SET /p without space before switch
+================
+
+set/p name=Enter:
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (prompt_assignment
+      (set_option)
+      (variable_name)
+      (assignment_value
+        (assignment_literal)))))
+
+================
+SET /p without any spaces around switch
+================
+
+set/pname=Enter:
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (prompt_assignment
+      (set_option)
+      (variable_name)
+      (assignment_value
+        (assignment_literal)))))
 
 ================
 SET empty value
@@ -81,6 +209,170 @@ set "MY_VAR="
   (variable_assignment
     (set_keyword)
     (variable_name)))
+
+================
+SET variable with multiple quoted backslash paths
+================
+
+SET python_loc="\bin\python" "\32\bin\python" "\Python\python"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal))))
+
+================
+SET variable reference in unquoted value
+================
+
+SET path=%userprofile%\scripts
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (variable_reference)
+      (assignment_literal))))
+
+================
+SET variable reference in quoted SET form
+================
+
+SET "path=%userprofile%\scripts"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (variable_reference)
+      (assignment_literal))))
+
+================
+SET variable with parens in variable name
+================
+
+SET path=%programfiles(x86)%\app
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (variable_reference)
+      (assignment_literal))))
+
+================
+SET multiple variable references in assignment
+================
+
+SET cmd=%windir%\system32\%tool%.exe
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (variable_reference)
+      (assignment_literal)
+      (variable_reference)
+      (assignment_literal))))
+
+================
+SET variable with quoted paths containing variable references
+================
+
+SET gimp_loc="%userprofile%\AppData\Local\Programs\GIMP" "%programfiles(x86)%\GIMP" "%programfiles%\GIMP"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal)
+      (variable_reference)
+      (assignment_literal)
+      (variable_reference)
+      (assignment_literal)
+      (variable_reference)
+      (assignment_literal))))
+
+================
+SET value with trailing literal percent
+================
+
+set var=100%
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal)
+      (assignment_literal))))
+
+================
+SET value with literal exclamation
+================
+
+set msg=Hello World!
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal)
+      (assignment_literal))))
+
+================
+SET pseudo-array variable with brackets
+================
+
+set "arr[1]=hello"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+SET pseudo-array variable unquoted
+================
+
+set arr[0]=world
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal))))
 
 ================
 Positional parameters in arguments
