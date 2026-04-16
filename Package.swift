@@ -1,12 +1,6 @@
 // swift-tools-version:5.3
 
-import Foundation
 import PackageDescription
-
-var sources = ["src/parser.c"]
-if FileManager.default.fileExists(atPath: "src/scanner.c") {
-    sources.append("src/scanner.c")
-}
 
 let package = Package(
     name: "TreeSitterBatch",
@@ -21,12 +15,48 @@ let package = Package(
             name: "TreeSitterBatch",
             dependencies: [],
             path: ".",
-            sources: sources,
+            exclude: [
+                ".editorconfig",
+                ".gitattributes",
+                ".github",
+                "binding.gyp",
+                "bindings/c",
+                "bindings/go",
+                "bindings/node",
+                "bindings/python",
+                "bindings/rust",
+                "Cargo.lock",
+                "Cargo.toml",
+                "CMakeLists.txt",
+                "eslint.config.mjs",
+                "examples",
+                "go-compat",
+                "go.mod",
+                "go.sum",
+                "grammar.js",
+                "LICENSE",
+                "Makefile",
+                "node_types.go",
+                "package-lock.json",
+                "package.json",
+                "pyproject.toml",
+                "queries.go",
+                "queries_test.go",
+                "README.md",
+                "setup.py",
+                "src/grammar.json",
+                "src/node-types.json",
+                "test",
+                "tree-sitter.json",
+            ],
+            sources: [
+                "src/parser.c",
+            ],
             resources: [
-                .copy("queries")
+                .copy("queries"),
             ],
             publicHeadersPath: "bindings/swift",
-            cSettings: [.headerSearchPath("src")]
+            cSettings: [.headerSearchPath("src")],
         ),
         .testTarget(
             name: "TreeSitterBatchTests",
@@ -34,8 +64,8 @@ let package = Package(
                 "SwiftTreeSitter",
                 "TreeSitterBatch",
             ],
-            path: "bindings/swift/TreeSitterBatchTests"
-        )
+            path: "bindings/swift/TreeSitterBatchTests",
+        ),
     ],
     cLanguageStandard: .c11
 )

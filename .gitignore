@@ -11,6 +11,8 @@ node_modules/
 
 # Swift artifacts
 .build/
+.swiftpm/
+Package.resolved
 
 # Go artifacts
 _obj/
