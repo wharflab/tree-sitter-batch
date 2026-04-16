@@ -121,6 +121,38 @@ set /p name=
       (variable_name))))
 
 ================
+SET /a without space before switch
+================
+
+set/a x=1
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
+
+================
+SET /p without space before switch
+================
+
+set/p name=Enter:
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (prompt_assignment
+      (set_option)
+      (variable_name)
+      (assignment_value
+        (assignment_literal)))))
+
+================
 SET empty value
 ================
 

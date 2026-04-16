@@ -36,11 +36,11 @@ export default grammar({
       ),
     )),
     arithmetic_assignment: ($) => seq(
-      /[ \t]+/, alias(token(prec(10, ci('/a'))), $.set_option),
+      optional(/[ \t]+/), alias(token(prec(10, ci('/a'))), $.set_option),
       $.arithmetic_expression,
     ),
     prompt_assignment: ($) => seq(
-      /[ \t]+/, alias(token(prec(10, ci('/p'))), $.set_option),
+      optional(/[ \t]+/), alias(token(prec(10, ci('/p'))), $.set_option),
       /[ \t]+/,
       alias(/[a-zA-Z_][a-zA-Z0-9_()\[\]]*/, $.variable_name), '=', optional($.assignment_value),
     ),
