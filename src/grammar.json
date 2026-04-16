@@ -399,6 +399,18 @@
           "value": "set_option"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[ \\t]+"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "arithmetic_expression"
         }
@@ -483,10 +495,6 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "[ \\t]+"
-              },
-              {
                 "type": "STRING",
                 "value": "\""
               },
@@ -501,17 +509,8 @@
             ]
           },
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "PATTERN",
-                "value": "[ \\t]+"
-              },
-              {
-                "type": "PATTERN",
-                "value": "[^\\r\\n\"]+"
-              }
-            ]
+            "type": "PATTERN",
+            "value": "[^\\r\\n\"]+"
           }
         ]
       }

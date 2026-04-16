@@ -89,6 +89,21 @@ set /a "x %=5"
       (arithmetic_expression))))
 
 ================
+SET /a quoted without space before expression
+================
+
+set /a"x=1"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (arithmetic_assignment
+      (set_option)
+      (arithmetic_expression))))
+
+================
 SET /p prompt
 ================
 

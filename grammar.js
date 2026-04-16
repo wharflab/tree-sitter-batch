@@ -37,7 +37,7 @@ export default grammar({
     )),
     arithmetic_assignment: ($) => seq(
       optional(/[ \t]+/), alias(token(prec(10, ci('/a'))), $.set_option),
-      $.arithmetic_expression,
+      optional(/[ \t]+/), $.arithmetic_expression,
     ),
     prompt_assignment: ($) => seq(
       optional(/[ \t]+/), alias(token(prec(10, ci('/p'))), $.set_option),
@@ -45,8 +45,8 @@ export default grammar({
       alias(/[a-zA-Z_][a-zA-Z0-9_()\[\]]*/, $.variable_name), '=', optional($.assignment_value),
     ),
     arithmetic_expression: () => token(choice(
-      seq(/[ \t]+/, '"', /[^"\r\n]*/, '"'),
-      seq(/[ \t]+/, /[^\r\n"]+/),
+      seq('"', /[^"\r\n]*/, '"'),
+      /[^\r\n"]+/,
     )),
     assignment_value: ($) => prec.right(repeat1(choice(
       $.variable_reference,
