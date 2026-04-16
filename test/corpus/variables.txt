@@ -281,6 +281,36 @@ set msg=Hello World!
       (assignment_literal))))
 
 ================
+SET pseudo-array variable with brackets
+================
+
+set "arr[1]=hello"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+SET pseudo-array variable unquoted
+================
+
+set arr[0]=world
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal))))
+
+================
 Positional parameters in arguments
 ================
 

@@ -301,7 +301,7 @@
                             "type": "ALIAS",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                              "value": "[a-zA-Z_][a-zA-Z0-9_()\\[\\]]*"
                             },
                             "named": true,
                             "value": "variable_name"
@@ -335,7 +335,7 @@
                             "type": "ALIAS",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+                              "value": "[a-zA-Z_][a-zA-Z0-9_()\\[\\]]*"
                             },
                             "named": true,
                             "value": "variable_name"
@@ -427,7 +427,7 @@
           "type": "ALIAS",
           "content": {
             "type": "PATTERN",
-            "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+            "value": "[a-zA-Z_][a-zA-Z0-9_()\\[\\]]*"
           },
           "named": true,
           "value": "variable_name"

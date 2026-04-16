@@ -29,8 +29,8 @@ export default grammar({
         seq(
           /[ \t]+/,
           choice(
-            seq('"', alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional($.quoted_assignment_value), '"'),
-            seq(alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional($.assignment_value)),
+            seq('"', alias(/[a-zA-Z_][a-zA-Z0-9_()\[\]]*/, $.variable_name), '=', optional($.quoted_assignment_value), '"'),
+            seq(alias(/[a-zA-Z_][a-zA-Z0-9_()\[\]]*/, $.variable_name), '=', optional($.assignment_value)),
           ),
         ),
       ),
@@ -42,7 +42,7 @@ export default grammar({
     prompt_assignment: ($) => seq(
       /[ \t]+/, alias(token(prec(10, ci('/p'))), $.set_option),
       /[ \t]+/,
-      alias(/[a-zA-Z_][a-zA-Z0-9_]*/, $.variable_name), '=', optional($.assignment_value),
+      alias(/[a-zA-Z_][a-zA-Z0-9_()\[\]]*/, $.variable_name), '=', optional($.assignment_value),
     ),
     arithmetic_expression: () => token(choice(
       seq(/[ \t]+/, '"', /[^"\r\n]*/, '"'),
