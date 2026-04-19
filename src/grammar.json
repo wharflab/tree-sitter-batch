@@ -385,15 +385,8 @@
         {
           "type": "ALIAS",
           "content": {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "PATTERN",
-                "value": "\\/[aA]"
-              }
-            }
+            "type": "PATTERN",
+            "value": "\\/[aA]"
           },
           "named": true,
           "value": "set_option"
@@ -434,15 +427,8 @@
         {
           "type": "ALIAS",
           "content": {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "PATTERN",
-                "value": "\\/[pP]"
-              }
-            }
+            "type": "PATTERN",
+            "value": "\\/[pP]"
           },
           "named": true,
           "value": "set_option"

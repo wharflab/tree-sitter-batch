@@ -23,5 +23,9 @@ cp "$repo_root/go-compat/smoke/main.go" "$tmpdir/smoke/main.go"
   GO111MODULE=on go get github.com/tree-sitter/go-tree-sitter@latest
   go mod tidy
   cd smoke
-  CGO_ENABLED=1 go run .
+  # Force a rebuild (`-a`) because cgo's #include "../../src/parser.c" is
+  # not always picked up by Go's build-cache invalidation when the
+  # generated parser source changes. Without -a, a cached .o from an
+  # older parser.c can be reused across runs.
+  CGO_ENABLED=1 go run -a .
 )
