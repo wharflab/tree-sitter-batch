@@ -1,6 +1,10 @@
 const ci = (word) => new RegExp(word.split('').map((c) => /[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c).join(''));
 const kw = (word) => token(prec(10, ci(word)));
-const operand = ($) => [$.cond_exec, $.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized, $.variable_assignment, $.goto_stmt, $.exit_stmt, $.setlocal_stmt, $.endlocal_stmt, $.if_stmt, $.for_stmt, $.macro_invocation];
+const operand = ($) => [
+  $.cond_exec, $.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized,
+  $.variable_assignment, $.goto_stmt, $.exit_stmt, $.setlocal_stmt, $.endlocal_stmt,
+  $.if_stmt, $.for_stmt, $.macro_invocation,
+];
 
 export default grammar({
   name: 'batch',
@@ -112,7 +116,11 @@ export default grammar({
       kw('else'),
       choice($.parenthesized, $._body_stmt),
     )),
-    _body_stmt: ($) => choice($.cmd, $.variable_assignment, $.call_stmt, $.goto_stmt, $.exit_stmt, $.setlocal_stmt, $.endlocal_stmt, $.if_stmt, $.for_stmt, $.redirect_stmt, $.pipe_stmt, $.comment),
+    _body_stmt: ($) => choice(
+      $.cmd, $.variable_assignment, $.call_stmt, $.goto_stmt, $.exit_stmt,
+      $.setlocal_stmt, $.endlocal_stmt, $.if_stmt, $.for_stmt,
+      $.redirect_stmt, $.pipe_stmt, $.comment,
+    ),
     _if_operand: ($) => choice(
       $.string, $.variable_reference, $.integer, $.bracketed_value,
       alias($._if_word, $.argument_value),
