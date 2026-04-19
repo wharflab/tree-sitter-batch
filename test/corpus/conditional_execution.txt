@@ -364,3 +364,36 @@ echo test && dir | find "x"
         (command_name)
         (argument_list
           (string))))))
+
+================
+Command separator with trailing comment
+================
+
+call :Init	&:# Initialize module
+
+---
+
+(program
+  (command_sep
+    (call_stmt)
+    (comment)))
+
+================
+Variable assignment followed by command separator
+================
+
+set "X=Y" & echo done
+
+---
+
+(program
+  (command_sep
+    (variable_assignment
+      (set_keyword)
+      (variable_name)
+      (quoted_assignment_value
+        (assignment_literal)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

@@ -459,3 +459,430 @@ echo %%i
     (command_name)
     (argument_list
       (variable_reference))))
+
+================
+SET variable with @ prefix
+================
+
+set "@amp=x"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+SET variable with double space before quote
+================
+
+set  "foo=bar"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+Variable reference with dot in name
+================
+
+echo %PopArg.ARGS%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Variable reference substring replacement
+================
+
+echo %PopArg.ARGS:/?="/?"%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+SET with dynamic variable name via parameter
+================
+
+set "%~1=value"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_reference)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+SET variable name starting with slash
+================
+
+set "/MACRO=tail"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+SET variable name with angle brackets
+================
+
+set ">>LOGFILE=>>%LOGFILE%"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal)
+      (variable_reference))))
+
+================
+SET variable name with dot and brackets
+================
+
+set ">MSGOUT.V[0]=rem"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+Symbolic one-char variable reference
+================
+
+echo %&%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+SET with caret-escaped quotes
+================
+
+set ^"XCALL=call foo^"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (caret_quoted_assignment_value
+      (assignment_literal))))
+
+================
+SET caret-escaped quotes with literal quote inside
+================
+
+set ^"@quot=""
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (caret_quoted_assignment_value
+      (assignment_literal))))
+
+================
+Delayed expansion of positional param with substitution
+================
+
+call !%1:%%=%%%%!
+
+---
+
+(program
+  (call_stmt
+    (variable_reference)))
+
+================
+Variable reference with angle-prefix name
+================
+
+echo %>DEBUGOUT%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Variable reference with double angle prefix
+================
+
+echo %>>LOGFILE%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Variable reference with slash-prefix name
+================
+
+echo %/MACRO%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Variable reference for literal newline
+================
+
+echo %\n%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+All-args variable reference
+================
+
+echo %*
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+SET variable literally named percent
+================
+
+set "%%=%%"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal)
+      (assignment_literal))))
+
+================
+SET with quoted variable name containing quotes
+================
+
+set ""ARG"=No"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+Variable reference with quoted name
+================
+
+echo %"ARG"%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Variable reference with dollar-prefix name
+================
+
+echo %$_%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion with dollar-prefix name
+================
+
+echo !$_!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion of single percent variable
+================
+
+echo !%!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion with substitution on named variable
+================
+
+echo !URL:a=b!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+SET unquoted variable name with hash suffix
+================
+
+set RETURN#=exit /b
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal))))
+
+================
+SET quoted name with FOR variable pattern
+================
+
+set "%%v="
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)))
+
+================
+SET variable name with variable reference prefix
+================
+
+set "%RETVAR%.TYPE=value"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_reference)
+    (variable_name)
+    (quoted_assignment_value
+      (assignment_literal))))
+
+================
+SET unquoted with dollar-prefix name
+================
+
+set $r=B
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal))))
+
+================
+SET value with multi-line parenthesized continuation
+================
+
+set RETURN=foo ( %\n%
+  set A=B %\n%
+)
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value
+      (assignment_literal)
+      (assignment_paren_group
+        (assignment_literal)
+        (variable_reference)
+        (assignment_literal)
+        (variable_reference)))))

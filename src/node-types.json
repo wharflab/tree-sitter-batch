@@ -50,6 +50,29 @@
     }
   },
   {
+    "type": "assignment_paren_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment_literal",
+          "named": true
+        },
+        {
+          "type": "assignment_paren_group",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assignment_value",
     "named": true,
     "fields": {},
@@ -59,6 +82,29 @@
       "types": [
         {
           "type": "assignment_literal",
+          "named": true
+        },
+        {
+          "type": "assignment_paren_group",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bracketed_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "bracketed_literal",
           "named": true
         },
         {
@@ -83,6 +129,29 @@
         {
           "type": "command_name",
           "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "caret_quoted_assignment_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_literal",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
         }
       ]
     }
@@ -101,6 +170,10 @@
         },
         {
           "type": "command_name",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
           "named": true
         }
       ]
@@ -127,7 +200,35 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "cond_exec",
+          "named": true
+        },
+        {
+          "type": "endlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "exit_stmt",
+          "named": true
+        },
+        {
+          "type": "for_stmt",
+          "named": true
+        },
+        {
+          "type": "goto_stmt",
+          "named": true
+        },
+        {
+          "type": "if_stmt",
+          "named": true
+        },
+        {
+          "type": "macro_invocation",
           "named": true
         },
         {
@@ -140,6 +241,14 @@
         },
         {
           "type": "redirect_stmt",
+          "named": true
+        },
+        {
+          "type": "setlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "variable_assignment",
           "named": true
         }
       ]
@@ -166,6 +275,30 @@
           "named": true
         },
         {
+          "type": "endlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "exit_stmt",
+          "named": true
+        },
+        {
+          "type": "for_stmt",
+          "named": true
+        },
+        {
+          "type": "goto_stmt",
+          "named": true
+        },
+        {
+          "type": "if_stmt",
+          "named": true
+        },
+        {
+          "type": "macro_invocation",
+          "named": true
+        },
+        {
           "type": "parenthesized",
           "named": true
         },
@@ -175,6 +308,14 @@
         },
         {
           "type": "redirect_stmt",
+          "named": true
+        },
+        {
+          "type": "setlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "variable_assignment",
           "named": true
         }
       ]
@@ -194,11 +335,55 @@
       "required": true,
       "types": [
         {
+          "type": "call_stmt",
+          "named": true
+        },
+        {
           "type": "cmd",
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "endlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "exit_stmt",
+          "named": true
+        },
+        {
+          "type": "for_stmt",
+          "named": true
+        },
+        {
+          "type": "goto_stmt",
+          "named": true
+        },
+        {
+          "type": "if_stmt",
+          "named": true
+        },
+        {
           "type": "parenthesized",
+          "named": true
+        },
+        {
+          "type": "pipe_stmt",
+          "named": true
+        },
+        {
+          "type": "redirect_stmt",
+          "named": true
+        },
+        {
+          "type": "setlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "variable_assignment",
           "named": true
         }
       ]
@@ -234,8 +419,35 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
+        {
+          "type": "for_set_group",
+          "named": true
+        },
+        {
+          "type": "for_set_literal",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_set_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "for_set_group",
+          "named": true
+        },
         {
           "type": "for_set_literal",
           "named": true
@@ -256,7 +468,23 @@
       "required": true,
       "types": [
         {
+          "type": "call_stmt",
+          "named": true
+        },
+        {
           "type": "cmd",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "endlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "exit_stmt",
           "named": true
         },
         {
@@ -268,11 +496,43 @@
           "named": true
         },
         {
+          "type": "for_stmt",
+          "named": true
+        },
+        {
           "type": "for_variable",
           "named": true
         },
         {
+          "type": "goto_stmt",
+          "named": true
+        },
+        {
+          "type": "if_stmt",
+          "named": true
+        },
+        {
           "type": "parenthesized",
+          "named": true
+        },
+        {
+          "type": "pipe_stmt",
+          "named": true
+        },
+        {
+          "type": "redirect_stmt",
+          "named": true
+        },
+        {
+          "type": "setlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "variable_assignment",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
           "named": true
         }
       ]
@@ -281,7 +541,21 @@
   {
     "type": "goto_stmt",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "if_stmt",
@@ -292,7 +566,23 @@
       "required": true,
       "types": [
         {
+          "type": "argument_value",
+          "named": true
+        },
+        {
+          "type": "bracketed_value",
+          "named": true
+        },
+        {
+          "type": "call_stmt",
+          "named": true
+        },
+        {
           "type": "cmd",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -304,6 +594,30 @@
           "named": true
         },
         {
+          "type": "endlocal_stmt",
+          "named": true
+        },
+        {
+          "type": "exit_stmt",
+          "named": true
+        },
+        {
+          "type": "for_stmt",
+          "named": true
+        },
+        {
+          "type": "goto_stmt",
+          "named": true
+        },
+        {
+          "type": "if_option",
+          "named": true
+        },
+        {
+          "type": "if_stmt",
+          "named": true
+        },
+        {
           "type": "integer",
           "named": true
         },
@@ -312,7 +626,23 @@
           "named": true
         },
         {
+          "type": "pipe_stmt",
+          "named": true
+        },
+        {
+          "type": "redirect_stmt",
+          "named": true
+        },
+        {
+          "type": "setlocal_stmt",
+          "named": true
+        },
+        {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable_assignment",
           "named": true
         },
         {
@@ -323,9 +653,27 @@
     }
   },
   {
-    "type": "label",
+    "type": "macro_invocation",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "else_clause",
+          "named": true
+        },
+        {
+          "type": "parenthesized",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "paren_expression",
@@ -412,6 +760,10 @@
         },
         {
           "type": "label",
+          "named": true
+        },
+        {
+          "type": "macro_invocation",
           "named": true
         },
         {
@@ -523,6 +875,10 @@
         },
         {
           "type": "label",
+          "named": true
+        },
+        {
+          "type": "macro_invocation",
           "named": true
         },
         {
@@ -654,11 +1010,19 @@
       "required": true,
       "types": [
         {
+          "type": "argument_list",
+          "named": true
+        },
+        {
           "type": "arithmetic_assignment",
           "named": true
         },
         {
           "type": "assignment_value",
+          "named": true
+        },
+        {
+          "type": "caret_quoted_assignment_value",
           "named": true
         },
         {
@@ -675,6 +1039,10 @@
         },
         {
           "type": "variable_name",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
           "named": true
         }
       ]
@@ -709,6 +1077,18 @@
     "named": false
   },
   {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "^\"",
+    "named": false
+  },
+  {
     "type": "argument_value",
     "named": true
   },
@@ -718,6 +1098,10 @@
   },
   {
     "type": "assignment_literal",
+    "named": true
+  },
+  {
+    "type": "bracketed_literal",
     "named": true
   },
   {
@@ -753,7 +1137,15 @@
     "named": true
   },
   {
+    "type": "if_option",
+    "named": true
+  },
+  {
     "type": "integer",
+    "named": true
+  },
+  {
+    "type": "label",
     "named": true
   },
   {

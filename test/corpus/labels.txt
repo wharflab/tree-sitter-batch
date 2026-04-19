@@ -19,3 +19,69 @@ Label with underscore
 
 (program
   (label))
+
+================
+Label with dot
+================
+
+:Library.Init
+
+---
+
+(program
+  (label))
+
+================
+Label with multiple dots
+================
+
+:Call.Init.Helper
+
+---
+
+(program
+  (label))
+
+================
+Label with trailing text
+================
+
+:Sub.Init # Create a SUB variable
+
+---
+
+(program
+  (label))
+
+================
+Label with trailing parameters
+================
+
+:PrepArgVars VAR [VAR ...]
+
+---
+
+(program
+  (label))
+
+================
+Label with hash-suffix name
+================
+
+:Debug.Return#
+
+---
+
+(program
+  (label))
+
+================
+Label with dollar-prefix name
+================
+
+:$helper
+
+---
+
+(program
+  (label))

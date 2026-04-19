@@ -143,3 +143,108 @@ call other.bat arg1 arg2
     (argument_list
       (argument_value)
       (argument_value))))
+
+================
+CALL dotted subroutine
+================
+
+call :Library.Init
+
+---
+
+(program
+  (call_stmt))
+
+================
+Macro invocation via variable expansion
+================
+
+%IF_VERBOSE% goto :Echo
+
+---
+
+(program
+  (cmd
+    (variable_reference)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Macro invocation with parenthesized block
+================
+
+%IF_VERBOSE% (
+  echo hello
+)
+
+---
+
+(program
+  (macro_invocation
+    (variable_reference)
+    (parenthesized
+      (cmd
+        (command_name)
+        (argument_list
+          (argument_value))))))
+
+================
+Command sep followed by macro invocation block
+================
+
+endlocal & %IF_EXEC% (
+  set X=Y
+)
+
+---
+
+(program
+  (command_sep
+    (endlocal_stmt)
+    (macro_invocation
+      (variable_reference)
+      (parenthesized
+        (variable_assignment
+          (set_keyword)
+          (variable_name)
+          (assignment_value
+            (assignment_literal)))))))
+
+================
+CALL dollar-prefixed label
+================
+
+call :$helper arg1
+
+---
+
+(program
+  (call_stmt
+    (argument_list
+      (argument_value))))
+
+================
+CALL hash-suffixed label
+================
+
+call :Debug.Return#
+
+---
+
+(program
+  (call_stmt))
+
+================
+Command name with dollar prefix
+================
+
+$helper arg1
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value))))
