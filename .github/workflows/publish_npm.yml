@@ -42,7 +42,7 @@ jobs:
             tree-sitter build --wasm "$grammar_dir"
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
       - name: Upload binaries
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           path: "*.wasm"
           name: prebuilds-wasm
@@ -84,7 +84,7 @@ jobs:
       - name: Build binary
         run: npm x -- prebuildify -t 20.19.5
       - name: Upload binaries
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           path: prebuilds/**
           name: prebuilds-${{matrix.os}}
@@ -107,7 +107,7 @@ jobs:
           node-version: ${{vars.NODE_VERSION || '24'}}
           registry-url: https://registry.npmjs.org/
       - name: Download binaries
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           path: prebuilds
           pattern: prebuilds-*
