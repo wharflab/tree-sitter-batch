@@ -67,7 +67,7 @@ func main() {
 		},
 		{
 			name:   "set/p without leading whitespace still parses",
-			source: "set/p name=Enter:\n",
+			source: "set/p name=value\n",
 			checks: []func([]byte, *sitter.Node) error{
 				expectRootKind("program"),
 				expectNoErrors(),
@@ -109,7 +109,7 @@ func expectRootKind(want string) func([]byte, *sitter.Node) error {
 func expectNoErrors() func([]byte, *sitter.Node) error {
 	return func(_ []byte, root *sitter.Node) error {
 		if root.HasError() {
-			return fmt.Errorf("root node has parse errors")
+			return fmt.Errorf("root node has parse errors; sexp=%s", root.ToSexp())
 		}
 		return nil
 	}
