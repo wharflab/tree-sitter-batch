@@ -215,7 +215,7 @@
                 },
                 {
                   "type": "PATTERN",
-                  "value": "[^a-zA-Z_\\r\\n]"
+                  "value": "[^$a-zA-Z_\\r\\n]"
                 },
                 {
                   "type": "PATTERN",
@@ -255,7 +255,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "[a-zA-Z_][a-zA-Z0-9_.#-]*"
+            "value": "[$a-zA-Z_][$a-zA-Z0-9_.#-]*"
           },
           {
             "type": "CHOICE",
@@ -1225,7 +1225,7 @@
         "value": -1,
         "content": {
           "type": "PATTERN",
-          "value": "[^=<>\\s\\[\\]\"|&()][^=<>\\s\\[\\]\"|&()]*"
+          "value": "[^=<>\\s\\[\\]\"|&()][^=<>\\s\"|&()]*"
         }
       }
     },
@@ -1337,7 +1337,7 @@
                             },
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][a-zA-Z0-9_.-]*"
+                              "value": "[$a-zA-Z_][$a-zA-Z0-9_.#-]*"
                             }
                           ]
                         }
@@ -1421,7 +1421,7 @@
                     },
                     {
                       "type": "PATTERN",
-                      "value": "[a-zA-Z_][a-zA-Z0-9_.-]*"
+                      "value": "[$a-zA-Z_][$a-zA-Z0-9_.#-]*"
                     }
                   ]
                 }
@@ -2643,7 +2643,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[@a-zA-Z_][@a-zA-Z0-9_.()\\[\\]]*"
+                "value": "[$@a-zA-Z_][$@a-zA-Z0-9_.#()\\[\\]]*"
               },
               {
                 "type": "STRING",
@@ -2719,7 +2719,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z_][a-zA-Z0-9_.]*"
+                "value": "[$%a-zA-Z_][$a-zA-Z0-9_.#]*"
               },
               {
                 "type": "STRING",
@@ -2736,7 +2736,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[@a-zA-Z_][@a-zA-Z0-9_.()\\[\\]]*"
+                "value": "[$@a-zA-Z_][$@a-zA-Z0-9_.#()\\[\\]]*"
               },
               {
                 "type": "STRING",
@@ -2778,7 +2778,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "%[0-9a-zA-Z_]*"
+                "value": "[%$a-zA-Z_][%$a-zA-Z0-9_.#()\\[\\]]*"
               },
               {
                 "type": "PATTERN",
@@ -2978,7 +2978,7 @@
     },
     "command_name": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_.-]*"
+      "value": "[$a-zA-Z_][$a-zA-Z0-9_.#-]*"
     },
     "argument_list": {
       "type": "PREC_RIGHT",

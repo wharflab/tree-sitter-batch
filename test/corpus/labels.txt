@@ -74,3 +74,14 @@ Label with hash-suffix name
 
 (program
   (label))
+
+================
+Label with dollar-prefix name
+================
+
+:$helper
+
+---
+
+(program
+  (label))

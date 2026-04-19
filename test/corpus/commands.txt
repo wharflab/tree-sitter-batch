@@ -210,3 +210,41 @@ endlocal & %IF_EXEC% (
           (variable_name)
           (assignment_value
             (assignment_literal)))))))
+
+================
+CALL dollar-prefixed label
+================
+
+call :$helper arg1
+
+---
+
+(program
+  (call_stmt
+    (argument_list
+      (argument_value))))
+
+================
+CALL hash-suffixed label
+================
+
+call :Debug.Return#
+
+---
+
+(program
+  (call_stmt))
+
+================
+Command name with dollar prefix
+================
+
+$helper arg1
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value))))

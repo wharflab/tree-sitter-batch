@@ -751,6 +751,62 @@ echo %"ARG"%
       (variable_reference))))
 
 ================
+Variable reference with dollar-prefix name
+================
+
+echo %$_%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion with dollar-prefix name
+================
+
+echo !$_!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion of single percent variable
+================
+
+echo !%!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion with substitution on named variable
+================
+
+echo !URL:a=b!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
 SET unquoted variable name with hash suffix
 ================
 

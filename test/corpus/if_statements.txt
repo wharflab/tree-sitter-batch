@@ -268,3 +268,21 @@ if defined $r echo yes
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+IF comparison with brackets in operand
+================
+
+if %foo[1]%==%bar[1]% echo match
+
+---
+
+(program
+  (if_stmt
+    (variable_reference)
+    (comparison_op)
+    (variable_reference)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

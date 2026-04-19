@@ -88,3 +88,25 @@ GOTO without target (parenthesized)
 (program
   (parenthesized
     (goto_stmt)))
+
+================
+GOTO dollar-prefixed label
+================
+
+goto :$done
+
+---
+
+(program
+  (goto_stmt))
+
+================
+GOTO hash-suffixed label
+================
+
+goto :Debug.Return#
+
+---
+
+(program
+  (goto_stmt))
