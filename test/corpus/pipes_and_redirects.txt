@@ -204,3 +204,59 @@ call foo | findstr bar
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+Leading redirect before command
+================
+
+>NUL copy /y NUL + NUL /a
+
+---
+
+(program
+  (redirect_stmt
+    (redirection
+      (redirect_op)
+      (redirect_target))
+    (cmd
+      (command_name)
+      (argument_list
+        (command_option)
+        (argument_value)
+        (argument_value)
+        (argument_value)
+        (command_option)))))
+
+================
+Redirect stdout to stderr via fd
+================
+
+echo msg >&2
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (redirection
+      (fd_redirect))))
+
+================
+Leading fd-redirect then command
+================
+
+>&2 echo warning
+
+---
+
+(program
+  (redirect_stmt
+    (redirection
+      (fd_redirect))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

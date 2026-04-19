@@ -30,3 +30,49 @@ REM with @ prefix
 
 (program
   (comment))
+
+================
+Colon-hash comment (SysToolsLib style)
+================
+
+:# This is a comment
+:#----------------------------------------------------------------------------#
+
+---
+
+(program
+  (comment)
+  (comment))
+
+================
+Colon-space comment
+================
+
+: This is treated as a comment by CMD
+
+---
+
+(program
+  (comment))
+
+================
+Colon-bang comment
+================
+
+:! comment with bang
+
+---
+
+(program
+  (comment))
+
+================
+Percent-hash inline macro-comment
+================
+
+%# The two blank lines here are necessary. #%
+
+---
+
+(program
+  (comment))

@@ -21,6 +21,17 @@ setlocal enabledelayedexpansion
   (setlocal_stmt))
 
 ================
+SETLOCAL multiple options
+================
+
+setlocal EnableExtensions DisableDelayedExpansion
+
+---
+
+(program
+  (setlocal_stmt))
+
+================
 ENDLOCAL
 ================
 

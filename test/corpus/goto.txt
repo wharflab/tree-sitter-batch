@@ -30,3 +30,61 @@ goto :eof
 
 (program
   (goto_stmt))
+
+================
+GOTO dotted label
+================
+
+goto Call.end
+
+---
+
+(program
+  (goto_stmt))
+
+================
+GOTO colon dotted label
+================
+
+goto :Library.Init
+
+---
+
+(program
+  (goto_stmt))
+
+================
+GOTO label with variable reference
+================
+
+goto :Debug.%DEBUG%
+
+---
+
+(program
+  (goto_stmt
+    (variable_reference)))
+
+================
+GOTO with trailing comment
+================
+
+goto :Exec.NextArg :# Trailing comment
+
+---
+
+(program
+  (goto_stmt
+    (comment)))
+
+================
+GOTO without target (parenthesized)
+================
+
+(goto)
+
+---
+
+(program
+  (parenthesized
+    (goto_stmt)))

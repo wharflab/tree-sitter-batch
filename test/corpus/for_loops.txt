@@ -147,3 +147,72 @@ for /r %TEMP% %%i in (*.tmp) do echo %%i
       (command_name)
       (argument_list
         (variable_reference)))))
+
+================
+FOR /F with nested parens in set
+================
+
+for /f "tokens=1 delims=#" %%a in ('prompt #$H# & for %%b in (1) do rem') do set "DEL=%%a"
+
+---
+
+(program
+  (for_stmt
+    (for_options)
+    (for_variable)
+    (for_set
+      (for_set_literal)
+      (variable_reference)
+      (for_set_literal)
+      (for_set_group
+        (for_set_literal))
+      (for_set_literal))
+    (variable_assignment
+      (set_keyword)
+      (variable_name)
+      (quoted_assignment_value
+        (variable_reference)))))
+
+================
+Macro-style FOR loop with variable prefix
+================
+
+%FOREACHLINE% %%i in ('cmd') do (
+  echo %%i
+)
+
+---
+
+(program
+  (for_stmt
+    (variable_reference)
+    (for_variable)
+    (for_set
+      (for_set_literal))
+    (parenthesized
+      (cmd
+        (command_name)
+        (argument_list
+          (variable_reference))))))
+
+================
+FOR loop with multi-line set
+================
+
+for %%x in ("a"
+            "b"
+           ) do echo %%x
+
+---
+
+(program
+  (for_stmt
+    (for_variable)
+    (for_set
+      (for_set_literal)
+      (for_set_literal)
+      (for_set_literal))
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))))

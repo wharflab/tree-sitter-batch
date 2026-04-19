@@ -78,3 +78,193 @@ if not exist "file.txt" echo Missing
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+IF body is variable_assignment
+================
+
+if not defined HOME set "HOME=%HOMEDRIVE%"
+
+---
+
+(program
+  (if_stmt
+    (variable_assignment
+      (set_keyword)
+      (variable_name)
+      (quoted_assignment_value
+        (variable_reference)))))
+
+================
+IF body is call_stmt
+================
+
+if errorlevel 1 call :abort
+
+---
+
+(program
+  (if_stmt
+    (integer)
+    (call_stmt)))
+
+================
+IF body is goto_stmt
+================
+
+if exist "file.txt" goto :found
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (goto_stmt)))
+
+================
+IF followed by command separator and comment
+================
+
+if not defined X set "X=Y" & :: trailing comment
+
+---
+
+(program
+  (command_sep
+    (if_stmt
+      (variable_assignment
+        (set_keyword)
+        (variable_name)
+        (quoted_assignment_value
+          (assignment_literal))))
+    (comment)))
+
+================
+IF bracketed empty comparison
+================
+
+if [%2]==[] goto :eof
+
+---
+
+(program
+  (if_stmt
+    (bracketed_value
+      (variable_reference))
+    (comparison_op)
+    (bracketed_value)
+    (goto_stmt)))
+
+================
+Nested IF-IF chain
+================
+
+if "%A%"=="Yes" if "%B%"=="No" call :Helper
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (comparison_op)
+    (string)
+    (if_stmt
+      (string)
+      (comparison_op)
+      (string)
+      (call_stmt))))
+
+================
+IF EXIST with unquoted filename
+================
+
+if exist echo.bat goto :found
+
+---
+
+(program
+  (if_stmt
+    (argument_value)
+    (goto_stmt)))
+
+================
+IF comparison using dot-delimited literals
+================
+
+if .%VERBOSE%.==.1. set "X=Y"
+
+---
+
+(program
+  (if_stmt
+    (argument_value)
+    (comparison_op)
+    (argument_value)
+    (variable_assignment
+      (set_keyword)
+      (variable_name)
+      (quoted_assignment_value
+        (assignment_literal)))))
+
+================
+IF DEFINED quoted name
+================
+
+if defined "ARG" echo yes
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF DEFINED positional parameter
+================
+
+if not defined %1 exit /b
+
+---
+
+(program
+  (if_stmt
+    (variable_reference)
+    (exit_stmt)))
+
+================
+IF with case-insensitive option
+================
+
+if /i "%A%"=="yes" echo match
+
+---
+
+(program
+  (if_stmt
+    (if_option)
+    (string)
+    (comparison_op)
+    (string)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF DEFINED variable with dollar prefix
+================
+
+if defined $r echo yes
+
+---
+
+(program
+  (if_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
