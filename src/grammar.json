@@ -946,6 +946,10 @@
               },
               "named": true,
               "value": "assignment_literal"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_line_continuation"
             }
           ]
         }
@@ -3769,9 +3773,20 @@
               },
               "named": true,
               "value": "argument_value"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_line_continuation"
             }
           ]
         }
+      }
+    },
+    "_line_continuation": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\^\\r?\\n[ \\t]*"
       }
     },
     "_echo_literal": {
@@ -3847,6 +3862,10 @@
         {
           "type": "SYMBOL",
           "name": "argument_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_continuation"
         }
       ]
     },
@@ -3899,17 +3918,6 @@
     {
       "type": "PATTERN",
       "value": "[ \\t]"
-    },
-    {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 20,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\^\\r?\\n[ \\t]*"
-        }
-      }
     }
   ],
   "conflicts": [

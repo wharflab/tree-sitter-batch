@@ -44,7 +44,8 @@ set LF=^
 (program
   (variable_assignment
     (set_keyword)
-    (variable_name)))
+    (variable_name)
+    (assignment_value)))
 
 ================
 Caret continuation before quoted argument
@@ -60,3 +61,4 @@ call "%JAVACMD%" ^
     (string)
     (argument_list
       (string))))
+

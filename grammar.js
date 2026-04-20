@@ -26,7 +26,7 @@ const operand = ($) => [
 
 export default grammar({
   name: 'batch',
-  extras: () => [/[ \t]/, token(prec(20, /\^\r?\n[ \t]*/))],
+  extras: () => [/[ \t]/],
   word: ($) => $.command_name,
   conflicts: ($) => [
     [$.parenthesized, $.paren_expression],
@@ -105,6 +105,7 @@ export default grammar({
       alias(/[^%!()\r\n]+/, $.assignment_literal),
       alias('%', $.assignment_literal),
       alias('!', $.assignment_literal),
+      $._line_continuation,
     ))),
     assignment_paren_group: ($) => seq('(', repeat(choice(
       $.variable_reference,
@@ -260,12 +261,16 @@ export default grammar({
       $.variable_reference,
       $.string,
       alias($._echo_literal, $.argument_value),
+      $._line_continuation,
     ))),
+    // Trailing `^` escapes the following newline, joining the next physical
+    // line onto the current logical one. Treated as whitespace between tokens.
+    _line_continuation: () => token(/\^\r?\n[ \t]*/),
     _echo_literal: () => token(/(?:\^[&|<>^()]|[^\s|&><"\r\n%!()])+|[()!%]/),
     macro_invocation: ($) => prec.right(6, seq($.variable_reference, $.parenthesized, optional($.else_clause))),
     command_name: () => /[$a-zA-Z_0-9][$a-zA-Z0-9_.#-]*/,
     argument_list: ($) => prec.right(repeat1($._arg)),
-    _arg: ($) => choice($.string, $.variable_reference, $.command_option, $.paren_expression, $.argument_value),
+    _arg: ($) => choice($.string, $.variable_reference, $.command_option, $.paren_expression, $.argument_value, $._line_continuation),
     command_option: () => token(seq('/', /[a-zA-Z_?][a-zA-Z0-9_:]*/)),
     paren_expression: ($) => seq('(', repeat($._arg), ')'),
     argument_value: () => /(?:\^[&|<>^()]|[^\s|&><"\r\n%!()])(?:\^[&|<>^()]|[^\s|&><"\r\n()])*|[!%]/,
