@@ -15,6 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Assert committed parser.c targets ABI 14
+        run: |
+          abi=$(sed -n 's/^#define LANGUAGE_VERSION //p' src/parser.c)
+          if [ "$abi" != "14" ]; then
+            echo "src/parser.c LANGUAGE_VERSION=$abi, expected 14."
+            echo "Regenerate with: npm run generate (pins --abi 14)."
+            exit 1
+          fi
+
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
