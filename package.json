@@ -34,11 +34,15 @@
     "node-gyp-build": "^4.8.4"
   },
   "devDependencies": {
-    "eslint": "^10.0.0",
+    "eslint": "^10.2.0",
     "eslint-config-treesitter": "^1.0.2",
+    "globals": "^17.5.0",
     "prebuildify": "^6.0.1",
     "tree-sitter-cli": "0.24.7",
     "tree-sitter-go-types": "^0.1.0"
+  },
+  "overrides": {
+    "eslint-plugin-jsdoc": "^62.9.0"
   },
   "peerDependencies": {
     "tree-sitter": ">=0.25.0"
