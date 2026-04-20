@@ -39,3 +39,45 @@ echo %%~$PATH:F
     (command_name)
     (argument_list
       (variable_reference))))
+
+================
+For variable reference with digit name and tilde modifier
+================
+
+echo %%~1
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+For variable reference with throwaway dot name and tilde modifier
+================
+
+echo %%~.
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Nested for variable reference with digit and tilde modifier
+================
+
+echo %%%%~D2
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))

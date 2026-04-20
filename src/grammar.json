@@ -3046,7 +3046,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z0-9]"
+                "value": "[a-zA-Z0-9.]"
               }
             ]
           },
@@ -3080,7 +3080,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z0-9]"
+                "value": "[a-zA-Z0-9.]"
               }
             ]
           },
@@ -3114,7 +3114,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z]"
+                "value": "[a-zA-Z0-9.]"
               }
             ]
           },
@@ -3368,7 +3368,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z0-9]"
+                "value": "[a-zA-Z0-9.]"
               }
             ]
           },
@@ -3402,7 +3402,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z0-9]"
+                "value": "[a-zA-Z0-9.]"
               }
             ]
           },
@@ -3436,7 +3436,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "[a-zA-Z]"
+                "value": "[a-zA-Z0-9.]"
               }
             ]
           },
