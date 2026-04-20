@@ -92,7 +92,7 @@ jobs:
 
   package:
     name: Publish NodeJS package
-    needs: [build_wasm, build_node]
+    needs: [ build_wasm, build_node ]
     runs-on: ubuntu-24.04
     environment:
       name: npm
@@ -118,6 +118,7 @@ jobs:
         continue-on-error: true
         run: mv -v prebuilds/*.wasm .
       - name: Sync version from tree-sitter.json
-        run: npm version --no-git-tag-version "$(jq -r .metadata.version tree-sitter.json)"
+        run: npm version --allow-same-version --no-git-tag-version "$(jq -r
+          .metadata.version tree-sitter.json)"
       - name: Publish to npm
         run: npm publish ${{ github.event_name == 'pull_request' && '--dry-run' || '' }}
