@@ -17,12 +17,14 @@ jobs:
         run: tree-sitter test
       - name: Parse example .bat files (integration test)
         run: tree-sitter parse examples/*.bat --quiet --stat
-      - name: Assert zero parse errors on search.bat fixture
+      - name: Assert zero parse errors on real-world fixtures
         run: |
-          output=$(tree-sitter parse examples/search.bat)
-          if echo "$output" | grep -qE '\(ERROR|MISSING'; then
-            echo "search.bat has parse errors:"
-            echo "$output" | grep -E '\(ERROR|MISSING' | head -20
-            exit 1
-          fi
-          echo "search.bat parsed cleanly with no ERROR or MISSING nodes."
+          for fixture in examples/search.bat examples/dope.bat; do
+            output=$(tree-sitter parse "$fixture")
+            if echo "$output" | grep -qE '\(ERROR|MISSING'; then
+              echo "$fixture has parse errors:"
+              echo "$output" | grep -E '\(ERROR|MISSING' | head -20
+              exit 1
+            fi
+            echo "$fixture parsed cleanly with no ERROR or MISSING nodes."
+          done
