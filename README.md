@@ -6,10 +6,11 @@ Parses `.bat` and `.cmd` files into a concrete syntax tree for syntax highlighti
 
 ## Features
 
-- **Control flow** &mdash; `IF`/`ELSE` (EXIST, DEFINED, ERRORLEVEL, comparison with NOT), `FOR` (/D /R /L /F), `GOTO`, `CALL`
-- **Variables** &mdash; `SET` (plain, `/A` arithmetic, `/P` prompt), `%VAR%`, `!VAR!`, `%%i`, `%~dp0`, `%VAR:old=new%`
-- **Operators** &mdash; pipes `|`, redirects `>` `>>` `2>` `2>&1`, conditional `&&` `||`
-- **Structure** &mdash; labels `:name`, comments `REM` `::`, parenthesized blocks, `@ECHO OFF`
+- **Control flow** &mdash; `IF`/`ELSE` (EXIST, DEFINED, ERRORLEVEL, comparison with NOT), `FOR` (/D /R /L /F), `GOTO`, `CALL`, `EXIT /B`
+- **Variables** &mdash; `SET` (plain, `/A` arithmetic, `/P` prompt), `%VAR%`, `!VAR!`, `%%i`, `%~dp0`, `%VAR:old=new%`, escaped forms `%%VAR%%` `%%%%i`
+- **Echo** &mdash; free-form text with literal `(` `)` `!` `%`, inline strings, and variable references
+- **Operators** &mdash; pipes `|`, redirects `>` `>>` `2>` `2>&1`, conditional `&&` `||`, separator `&`
+- **Structure** &mdash; labels `:name`, comments `REM` `::`, parenthesized blocks, `@ECHO OFF`, macro invocations
 - **Scope** &mdash; `SETLOCAL`/`ENDLOCAL` with `ENABLEDELAYEDEXPANSION`
 - **Case-insensitive** &mdash; all keywords match regardless of casing
 
@@ -51,20 +52,20 @@ Parsed tree:
   (variable_assignment
     (set_keyword) (variable_name) (assignment_value))
   (variable_assignment
-    (set_keyword) (set_option) (variable_name) (assignment_value))
+    (set_keyword) (arithmetic_assignment (set_option) (arithmetic_expression)))
   (if_stmt
     (string)
     (parenthesized
       (cmd (command_name) (argument_list (argument_value)))))
   (for_stmt
     (for_variable)
-    (for_set)
+    (for_set (for_set_literal))
     (parenthesized
       (cmd (command_name) (argument_list (string) (string)))))
   (if_stmt
     (variable_reference)
     (comparison_op)
-    (integer)
+    (argument_value)
     (parenthesized
       (cmd (command_name) (argument_list (argument_value) (argument_value))))
     (else_clause
