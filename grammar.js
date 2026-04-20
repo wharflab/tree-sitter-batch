@@ -207,7 +207,7 @@ export default grammar({
       choice($.parenthesized, $._body_stmt),
     )),
     for_options: () => token(prec(10, choice(ci('/d'), seq(ci('/r'), optional(seq(/[ \t]+/, /(%[^\s%]|[^\s%])+%?/))), ci('/l'), seq(ci('/f'), optional(seq(/[ \t]+/, '"', /[^"]*/, '"')))))),
-    for_variable: () => token(seq('%%', optional(seq('~', /[a-zA-Z$:_]*/)), /[a-zA-Z0-9.]/)),
+    for_variable: () => token(seq('%%', /[a-zA-Z0-9.]/)),
     for_set: ($) => prec.right(repeat1(choice(
       $.variable_reference,
       $.for_set_group,
