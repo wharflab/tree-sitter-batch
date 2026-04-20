@@ -5,9 +5,17 @@ on:
     branches: [main]
     paths:
       - grammar.js
+      - eslint.config.mjs
+      - package.json
+      - package-lock.json
+      - .github/workflows/lint.yml
   pull_request:
     paths:
       - grammar.js
+      - eslint.config.mjs
+      - package.json
+      - package-lock.json
+      - .github/workflows/lint.yml
 
 jobs:
   lint:
