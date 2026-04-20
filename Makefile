@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-batch
 HOMEPAGE_URL := https://github.com/wharflab/tree-sitter-batch
-VERSION := 0.2.0
+VERSION := 0.9.0
 
 # repository
 SRC_DIR := src
