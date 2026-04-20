@@ -3450,12 +3450,8 @@
     "_echo_literal": {
       "type": "TOKEN",
       "content": {
-        "type": "PREC",
-        "value": -1,
-        "content": {
-          "type": "PATTERN",
-          "value": "(?:\\^[&|<>^()]|[^\\s|&><\"\\r\\n%!()])+|[()!]"
-        }
+        "type": "PATTERN",
+        "value": "(?:\\^[&|<>^()]|[^\\s|&><\"\\r\\n%!()])+|[()!%]"
       }
     },
     "macro_invocation": {

@@ -85,6 +85,37 @@ echo %%%%i
       (variable_reference))))
 
 ================
+Echo with literal percent sign
+================
+
+echo 50% done
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value)
+      (argument_value))))
+
+================
+Echo with trailing literal percent
+================
+
+echo 100%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
 Echo with trailing open paren and redirect
 ================
 

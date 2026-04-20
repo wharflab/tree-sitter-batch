@@ -240,7 +240,7 @@ export default grammar({
       $.string,
       alias($._echo_literal, $.argument_value),
     ))),
-    _echo_literal: () => token(prec(-1, /(?:\^[&|<>^()]|[^\s|&><"\r\n%!()])+|[()!]/)),
+    _echo_literal: () => token(/(?:\^[&|<>^()]|[^\s|&><"\r\n%!()])+|[()!%]/),
     macro_invocation: ($) => prec.right(6, seq($.variable_reference, $.parenthesized, optional($.else_clause))),
     command_name: () => /[$a-zA-Z_][$a-zA-Z0-9_.#-]*/,
     argument_list: ($) => prec.right(repeat1($._arg)),
