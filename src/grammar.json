@@ -784,8 +784,8 @@
                     {
                       "type": "ALIAS",
                       "content": {
-                        "type": "PATTERN",
-                        "value": "[@a-zA-Z_][@a-zA-Z0-9_()\\[\\]]*"
+                        "type": "SYMBOL",
+                        "name": "_var_name_pattern"
                       },
                       "named": true,
                       "value": "variable_name"
@@ -826,8 +826,8 @@
                     {
                       "type": "ALIAS",
                       "content": {
-                        "type": "PATTERN",
-                        "value": "[@a-zA-Z_][@a-zA-Z0-9_()\\[\\]]*"
+                        "type": "SYMBOL",
+                        "name": "_var_name_pattern"
                       },
                       "named": true,
                       "value": "variable_name"

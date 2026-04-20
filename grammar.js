@@ -91,8 +91,8 @@ export default grammar({
       optional(/[ \t]+/), alias(ci('/p'), $.set_option),
       optional(/[ \t]+/),
       choice(
-        seq(optional(alias(/[@a-zA-Z_][@a-zA-Z0-9_()\[\]]*/, $.variable_name)), '=', optional($.assignment_value)),
-        seq('"', optional(alias(/[@a-zA-Z_][@a-zA-Z0-9_()\[\]]*/, $.variable_name)), '=', optional($.quoted_assignment_value), '"', optional($.argument_list)),
+        seq(optional(alias($._var_name_pattern, $.variable_name)), '=', optional($.assignment_value)),
+        seq('"', optional(alias($._var_name_pattern, $.variable_name)), '=', optional($.quoted_assignment_value), '"', optional($.argument_list)),
       ),
     ),
     arithmetic_expression: () => token(choice(

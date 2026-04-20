@@ -1,4 +1,38 @@
 ================
+Set /p with dollar-prefixed variable name
+================
+
+set /p $foo=prompt
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (prompt_assignment
+      (set_option)
+      (variable_name)
+      (assignment_value
+        (assignment_literal)))))
+
+================
+Set /p with dotted variable name
+================
+
+set /p my.var=prompt
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (prompt_assignment
+      (set_option)
+      (variable_name)
+      (assignment_value
+        (assignment_literal)))))
+
+================
 Set /p with quoted variable name (empty prompt)
 ================
 
