@@ -1,10 +1,11 @@
 # tree-sitter-batch
 
 ## Build & Test
-- `npx tree-sitter generate` — regenerate parser from grammar.js (must run after any grammar change)
+- `npm run generate` — regenerate parser pinned to **ABI 14** (required for `go-tree-sitter v0.24.0`); runs `tree-sitter generate --abi 14 && tree-sitter-go-types`
 - `npx tree-sitter test` — run corpus tests in test/corpus/
 - `npx tree-sitter parse FILE` — parse a file and print tree; exits 1 on error
 - `npm run lint` — ESLint on grammar.js (max-len 160)
+- Never run bare `npx tree-sitter generate` — the CLI (≥0.26) defaults to ABI 15, which breaks Go consumers on `go-tree-sitter v0.24.0`. Only the committed `src/parser.c` needs ABI 14; the go-compat CI job enforces this. npm/crates/pypi publish workflows use the CLI default — their runtimes accept newer ABIs.
 
 ## Workflow
 - TDD: always add a failing corpus test BEFORE fixing grammar, then verify it passes
