@@ -6,6 +6,7 @@ on:
     paths:
       - grammar.js
       - eslint.config.mjs
+      - tsconfig.json
       - package.json
       - package-lock.json
       - .github/workflows/lint.yml
@@ -13,6 +14,7 @@ on:
     paths:
       - grammar.js
       - eslint.config.mjs
+      - tsconfig.json
       - package.json
       - package-lock.json
       - .github/workflows/lint.yml
@@ -32,3 +34,5 @@ jobs:
         run: npm ci
       - name: Run ESLint
         run: npm run lint
+      - name: Type-check grammar.js
+        run: npm run typecheck
