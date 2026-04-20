@@ -1,4 +1,9 @@
-const ci = (word) => new RegExp(word.split('').map((c) => /[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c).join(''));
+/// <reference types="tree-sitter-cli/dsl"/>
+// @ts-check
+
+/** @param {string} word */
+const ci = (word) => new RegExp(word.split('').map((/** @type {string} */ c) => /[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c).join(''));
+/** @param {string} word */
 const kw = (word) => token(prec(10, ci(word)));
 const varRefChoice = () => choice(
   seq('%%', /[$@a-zA-Z_][$@a-zA-Z0-9_.#()\[\]]*/, '%%'),
@@ -18,6 +23,7 @@ const varRefChoice = () => choice(
   seq('%', /\\[@a-zA-Z_0-9.]+/, '%'),
   seq('%', /"[^"%\r\n]+"/, '%'),
 );
+/** @param {GrammarSymbols<string>} $ */
 const operand = ($) => [
   $.cond_exec, $.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized,
   $.variable_assignment, $.goto_stmt, $.exit_stmt, $.setlocal_stmt, $.endlocal_stmt,
