@@ -344,3 +344,41 @@ if not exist %2\Content MD %2\Content
       (argument_list
         (variable_reference)
         (argument_value)))))
+
+================
+IF comparison with parenthesized operands
+================
+
+if (a)==(b) echo match
+
+---
+
+(program
+  (if_stmt
+    (paren_expression
+      (argument_value))
+    (comparison_op)
+    (paren_expression
+      (argument_value))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF comparison with delayed expansion operand
+================
+
+if !VAR!==foo echo match
+
+---
+
+(program
+  (if_stmt
+    (variable_reference)
+    (comparison_op)
+    (argument_value)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

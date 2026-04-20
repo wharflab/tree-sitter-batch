@@ -122,14 +122,14 @@ export default grammar({
       $.redirect_stmt, $.pipe_stmt, $.comment,
     ),
     _if_operand: ($) => choice(
-      $.string, $.bracketed_value,
+      $.string, $.bracketed_value, $.paren_expression,
       prec.right(seq(
         choice($.variable_reference, alias($._if_word, $.argument_value), $.integer),
         repeat(choice($.variable_reference, alias($._if_word_rest, $.argument_value))),
       )),
     ),
-    _if_word: () => token(prec(1, /[^=<>\s\[\]"|&()%][^=<>\s"|&()%]*/)),
-    _if_word_rest: () => token.immediate(/[^=<>\s\[\]"|&()%][^=<>\s"|&()%]*/),
+    _if_word: () => token(prec(1, /[^=<>\s\[\]"|&()%!][^=<>\s"|&()%!]*/)),
+    _if_word_rest: () => token.immediate(/[^=<>\s\[\]"|&()%!][^=<>\s"|&()%!]*/),
     comparison_op: () => token(prec(10, choice('==', ci('equ'), ci('neq'), ci('lss'), ci('leq'), ci('gtr'), ci('geq')))),
     goto_stmt: ($) => prec(8, seq(
       optional('@'), kw('goto'),
