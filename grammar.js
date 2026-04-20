@@ -1,5 +1,23 @@
 const ci = (word) => new RegExp(word.split('').map((c) => /[a-zA-Z]/.test(c) ? `[${c.toLowerCase()}${c.toUpperCase()}]` : c).join(''));
 const kw = (word) => token(prec(10, ci(word)));
+const varRefChoice = () => choice(
+  seq('%%', /[$@a-zA-Z_][$@a-zA-Z0-9_.#()\[\]]*/, '%%'),
+  seq('%', /[$@a-zA-Z_][$@a-zA-Z0-9_.#()\[\]]*/, '%'),
+  seq('%~', /[a-zA-Z]*/, /[0-9]/),
+  seq('%', /[0-9]/),
+  '%*',
+  seq('%%%%%%', optional('~'), /[a-zA-Z0-9]/),
+  seq('%%%%', optional('~'), /[a-zA-Z0-9]/),
+  seq('%%', optional('~'), /[a-zA-Z]/),
+  seq('%%', /[0-9]/),
+  seq('!', /[$%a-zA-Z_][$a-zA-Z0-9_.#]*/, '!'),
+  seq('%', /[$@a-zA-Z_][$@a-zA-Z0-9_.#()\[\]]*/, ':', /[^%\r\n]+/, '%'),
+  seq('%', /[^%=\s\r\n]/, '%'),
+  seq('!', /[%$a-zA-Z_][%$a-zA-Z0-9_.#()\[\]]*/, /:[^!\r\n]+/, '!'),
+  seq('%', /[<>\/]+[@a-zA-Z_0-9.]*/, '%'),
+  seq('%', /\\[@a-zA-Z_0-9.]+/, '%'),
+  seq('%', /"[^"%\r\n]+"/, '%'),
+);
 const operand = ($) => [
   $.cond_exec, $.pipe_stmt, $.redirect_stmt, $.call_stmt, $.cmd, $.parenthesized,
   $.variable_assignment, $.goto_stmt, $.exit_stmt, $.setlocal_stmt, $.endlocal_stmt,
@@ -125,7 +143,10 @@ export default grammar({
       $.string, $.bracketed_value, $.paren_expression,
       prec.right(seq(
         choice($.variable_reference, alias($._if_word, $.argument_value), $.integer),
-        repeat(choice($.variable_reference, alias($._if_word_rest, $.argument_value))),
+        repeat(choice(
+          alias($._variable_reference_immediate, $.variable_reference),
+          alias($._if_word_rest, $.argument_value),
+        )),
       )),
     ),
     _if_word: () => token(prec(1, /[^=<>\s\[\]"|&()%!][^=<>\s"|&()%!]*/)),
@@ -206,24 +227,8 @@ export default grammar({
       '&',
       choice(...operand($), $.comment),
     )),
-    variable_reference: () => token(choice(
-      seq('%%', /[$@a-zA-Z_][$@a-zA-Z0-9_.#()\[\]]*/, '%%'),
-      seq('%', /[$@a-zA-Z_][$@a-zA-Z0-9_.#()\[\]]*/, '%'),
-      seq('%~', /[a-zA-Z]*/, /[0-9]/),
-      seq('%', /[0-9]/),
-      '%*',
-      seq('%%%%%%', optional('~'), /[a-zA-Z0-9]/),
-      seq('%%%%', optional('~'), /[a-zA-Z0-9]/),
-      seq('%%', optional('~'), /[a-zA-Z]/),
-      seq('%%', /[0-9]/),
-      seq('!', /[$%a-zA-Z_][$a-zA-Z0-9_.#]*/, '!'),
-      seq('%', /[$@a-zA-Z_][$@a-zA-Z0-9_.#()\[\]]*/, ':', /[^%\r\n]+/, '%'),
-      seq('%', /[^%=\s\r\n]/, '%'),
-      seq('!', /[%$a-zA-Z_][%$a-zA-Z0-9_.#()\[\]]*/, /:[^!\r\n]+/, '!'),
-      seq('%', /[<>\/]+[@a-zA-Z_0-9.]*/, '%'),
-      seq('%', /\\[@a-zA-Z_0-9.]+/, '%'),
-      seq('%', /"[^"%\r\n]+"/, '%'),
-    )),
+    variable_reference: () => token(varRefChoice()),
+    _variable_reference_immediate: () => token.immediate(varRefChoice()),
     string: () => token(seq('"', /[^"\r\n]*/, '"')),
     bracketed_value: ($) => seq('[', repeat(choice($.variable_reference, alias(token(/[^%!\[\]\r\n]+/), $.bracketed_literal))), ']'),
     cmd: ($) => prec.right(5, choice(

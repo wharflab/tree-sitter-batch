@@ -382,3 +382,19 @@ if !VAR!==foo echo match
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+IF EXIST body starts with variable-reference command
+================
+
+if exist file %RUNNER% arg
+
+---
+
+(program
+  (if_stmt
+    (argument_value)
+    (cmd
+      (variable_reference)
+      (argument_list
+        (argument_value)))))
