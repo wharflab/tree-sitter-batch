@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-batch",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "A Windows Batch/CMD grammar for tree-sitter",
   "type": "module",
   "repository": {
