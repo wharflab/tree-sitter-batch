@@ -48,9 +48,11 @@ export default grammar({
       // Polyglot batch/PowerShell header line: `<# ...` is a PS block-comment open
       // that batch interprets as a (failing) redirect; we treat it as a comment.
       seq('<#', /[^\r\n]*/),
-      // Batch+VBScript polyglot: lines ending with the `'VBS` marker are extracted
-      // by the script itself as VBScript; the batch interpreter never runs them.
-      seq(/[^'\r\n][^\r\n]*[ \t]'VBS/),
+      // Batch+VBScript polyglot: lines containing a whitespace-prefixed `'VBS`
+      // marker are extracted by the script itself as VBScript; the batch
+      // interpreter never runs them. Consume the rest of the line after the
+      // marker so any trailing VBScript tokens don't leak into the batch parse.
+      seq(/[^'\r\n][^\r\n]*[ \t]'VBS/, /[^\r\n]*/),
     ))),
     label: () => token(seq(':', /[$a-zA-Z_][$a-zA-Z0-9_.#-]*/, optional(seq(/[ \t]/, /[^\r\n]*/)))),
     variable_assignment: ($) => prec(8, seq(
