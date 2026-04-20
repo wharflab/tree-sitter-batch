@@ -1,0 +1,53 @@
+================
+VBScript polyglot marker consumes rest of line
+================
+
+Set fso = CreateObject("FSO")		'VBS
+
+---
+
+(program
+  (comment))
+
+================
+VBScript polyglot marker with trailing content
+================
+
+Set x = y	'VBS extra content here
+
+---
+
+(program
+  (comment))
+
+================
+PowerShell header comment absorbs rest of line
+================
+
+<# :# PowerShell block comment, batch ignores
+
+---
+
+(program
+  (comment))
+
+================
+VBS marker inside a quoted argument is NOT a comment
+================
+
+findstr /E "'VBS" <"%~f0" >"%VBS%"
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (command_option)
+        (string)))
+    (redirection
+      (redirect_op)
+      (redirect_target)
+      (redirect_op)
+      (redirect_target))))

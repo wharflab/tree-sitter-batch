@@ -1,0 +1,60 @@
+================
+Command with single-digit integer argument
+================
+
+foo 0
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value))))
+
+================
+Command with fd-digit arguments 1 and 2
+================
+
+foo 1 2
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Variable reference call with integer arg
+================
+
+%RETURN% 0
+
+---
+
+(program
+  (cmd
+    (variable_reference)
+    (argument_list
+      (argument_value))))
+
+================
+If body with macro invocation and integer
+================
+
+if "a"=="b" %RETURN% 0
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (comparison_op)
+    (string)
+    (cmd
+      (variable_reference)
+      (argument_list
+        (argument_value)))))

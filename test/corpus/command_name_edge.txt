@@ -1,0 +1,33 @@
+================
+Command name starting with digit
+================
+
+1clip -U -Z
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Command name starting with digit after redirect
+================
+
+>&%P1OUT% 1clip -U
+
+---
+
+(program
+  (redirect_stmt
+    (redirection
+      (fd_redirect
+        (fd_redirect_op)
+        (variable_reference)))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

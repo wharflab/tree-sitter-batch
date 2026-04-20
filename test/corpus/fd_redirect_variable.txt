@@ -1,0 +1,52 @@
+================
+FD redirect with variable reference handle
+================
+
+break %1>&%2
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)))
+    (redirection
+      (fd_redirect
+        (fd_redirect_op)
+        (variable_reference)))))
+
+================
+Stdin FD redirect from variable handle
+================
+
+2clip <&%P1IN%
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (fd_redirect
+        (fd_redirect_op)
+        (variable_reference)))))
+
+================
+FD redirect with explicit fd number to variable handle
+================
+
+break 2>&%1
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name))
+    (redirection
+      (fd_redirect
+        (fd_redirect_op)
+        (variable_reference)))))

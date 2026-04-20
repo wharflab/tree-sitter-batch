@@ -27,6 +27,7 @@ const (
 	NodeEndlocalStmt = "endlocal_stmt"
 	NodeExitStmt = "exit_stmt"
 	NodeFdRedirect = "fd_redirect"
+	NodeFdRedirectOp = "fd_redirect_op"
 	NodeForOptions = "for_options"
 	NodeForSet = "for_set"
 	NodeForSetGroup = "for_set_group"

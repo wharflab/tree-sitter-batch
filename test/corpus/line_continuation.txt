@@ -1,0 +1,64 @@
+================
+Simple caret line continuation between arguments
+================
+
+echo hello ^
+world
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Caret continuation joins command across multiple lines
+================
+
+"%JAVACMD%" ^
+  -classpath %LAUNCHER_JAR% ^
+  %LAUNCHER_CLASS%
+
+---
+
+(program
+  (cmd
+    (string)
+    (argument_list
+      (argument_value)
+      (variable_reference)
+      (variable_reference))))
+
+================
+Caret continuation in SET value
+================
+
+set LF=^
+
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (assignment_value)))
+
+================
+Caret continuation before quoted argument
+================
+
+call "%JAVACMD%" ^
+  "-Dfoo=bar"
+
+---
+
+(program
+  (call_stmt
+    (string)
+    (argument_list
+      (string))))
+

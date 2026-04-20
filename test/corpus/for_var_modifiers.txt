@@ -1,0 +1,83 @@
+================
+For variable with size modifier
+================
+
+echo %%~zS
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+For variable with multi-modifier path expansion
+================
+
+echo %%~dpnxS
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+For variable with $PATH: modifier
+================
+
+echo %%~$PATH:F
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+For variable reference with digit name and tilde modifier
+================
+
+echo %%~1
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+For variable reference with throwaway dot name and tilde modifier
+================
+
+echo %%~.
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Nested for variable reference with digit and tilde modifier
+================
+
+echo %%%%~D2
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))

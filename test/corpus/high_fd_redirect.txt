@@ -1,0 +1,17 @@
+================
+Redirect with fd above 2
+================
+
+9>"out.log" echo hello
+
+---
+
+(program
+  (redirect_stmt
+    (redirection
+      (redirect_op)
+      (redirect_target))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

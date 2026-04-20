@@ -1,0 +1,18 @@
+================
+If with concatenated empty quoted strings
+================
+
+if "%C%"=="""" echo empty
+
+---
+
+(program
+  (if_stmt
+    (string)
+    (comparison_op)
+    (string)
+    (string)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
