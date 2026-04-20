@@ -24,6 +24,7 @@ if defined MY_VAR echo Defined
 
 (program
   (if_stmt
+    (argument_value)
     (cmd
       (command_name)
       (argument_list
@@ -89,6 +90,7 @@ if not defined HOME set "HOME=%HOMEDRIVE%"
 
 (program
   (if_stmt
+    (argument_value)
     (variable_assignment
       (set_keyword)
       (variable_name)
@@ -132,6 +134,7 @@ if not defined X set "X=Y" & :: trailing comment
 (program
   (command_sep
     (if_stmt
+      (argument_value)
       (variable_assignment
         (set_keyword)
         (variable_name)
@@ -197,6 +200,8 @@ if .%VERBOSE%.==.1. set "X=Y"
 
 (program
   (if_stmt
+    (argument_value)
+    (variable_reference)
     (argument_value)
     (comparison_op)
     (argument_value)
@@ -264,6 +269,7 @@ if defined $r echo yes
 
 (program
   (if_stmt
+    (argument_value)
     (cmd
       (command_name)
       (argument_list
@@ -284,5 +290,111 @@ if %foo[1]%==%bar[1]% echo match
     (variable_reference)
     (cmd
       (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF comparison with quoted-string operand (x'...' form)
+================
+
+if x'%2'==x'/?' goto COMMAND_HELP
+
+---
+
+(program
+  (if_stmt
+    (argument_value)
+    (variable_reference)
+    (argument_value)
+    (comparison_op)
+    (argument_value)
+    (goto_stmt)))
+
+================
+IF comparison with single-quoted variable operand
+================
+
+if '%1'=='site' goto SITE
+
+---
+
+(program
+  (if_stmt
+    (argument_value)
+    (variable_reference)
+    (argument_value)
+    (comparison_op)
+    (argument_value)
+    (goto_stmt)))
+
+================
+IF EXIST with variable_reference and trailing path
+================
+
+if not exist %2\Content MD %2\Content
+
+---
+
+(program
+  (if_stmt
+    (variable_reference)
+    (argument_value)
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)
+        (argument_value)))))
+
+================
+IF comparison with parenthesized operands
+================
+
+if (a)==(b) echo match
+
+---
+
+(program
+  (if_stmt
+    (paren_expression
+      (argument_value))
+    (comparison_op)
+    (paren_expression
+      (argument_value))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF comparison with delayed expansion operand
+================
+
+if !VAR!==foo echo match
+
+---
+
+(program
+  (if_stmt
+    (variable_reference)
+    (comparison_op)
+    (argument_value)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+IF EXIST body starts with variable-reference command
+================
+
+if exist file %RUNNER% arg
+
+---
+
+(program
+  (if_stmt
+    (argument_value)
+    (cmd
+      (variable_reference)
       (argument_list
         (argument_value)))))

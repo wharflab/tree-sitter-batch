@@ -34,3 +34,109 @@ echo Hello World
     (argument_list
       (argument_value)
       (argument_value))))
+
+================
+Echo with trailing close paren
+================
+
+echo will be used.)
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value)
+      (argument_value)
+      (argument_value))))
+
+================
+Echo lone close paren with redirect
+================
+
+echo ) >> ..\out.cmd
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))
+    (redirection
+      (redirect_op)
+      (redirect_target))))
+
+================
+Echo with quadruple percent for-variable
+================
+
+echo %%%%i
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Echo with literal percent sign
+================
+
+echo 50% done
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value)
+      (argument_value))))
+
+================
+Echo with trailing literal percent
+================
+
+echo 100%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (argument_value)
+      (argument_value))))
+
+================
+Echo with trailing open paren and redirect
+================
+
+echo FOR /F %%%%i in (..\x) do ( >> out.cmd
+
+---
+
+(program
+  (redirect_stmt
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)
+        (argument_value)
+        (variable_reference)
+        (argument_value)
+        (argument_value)
+        (argument_value)
+        (argument_value)
+        (argument_value)
+        (argument_value)))
+    (redirection
+      (redirect_op)
+      (redirect_target))))
