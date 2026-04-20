@@ -1,0 +1,16 @@
+================
+For /l with throwaway variable name (dot)
+================
+
+for /l %%. in () do echo hi
+
+---
+
+(program
+  (for_stmt
+    (for_options)
+    (for_variable)
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))

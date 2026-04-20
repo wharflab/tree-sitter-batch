@@ -1,0 +1,41 @@
+================
+For variable with size modifier
+================
+
+echo %%~zS
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+For variable with multi-modifier path expansion
+================
+
+echo %%~dpnxS
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+For variable with $PATH: modifier
+================
+
+echo %%~$PATH:F
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))

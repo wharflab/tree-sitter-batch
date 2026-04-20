@@ -1,0 +1,37 @@
+================
+Parenthesized block with @ prefix suppresses echo
+================
+
+@(
+  echo hello
+)
+
+---
+
+(program
+  (parenthesized
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
+
+================
+For loop body as @-prefixed parenthesized block
+================
+
+for %%F in (a) do @(
+  echo %%F
+)
+
+---
+
+(program
+  (for_stmt
+    (for_variable)
+    (for_set
+      (for_set_literal))
+    (parenthesized
+      (cmd
+        (command_name)
+        (argument_list
+          (variable_reference))))))

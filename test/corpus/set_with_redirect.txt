@@ -1,0 +1,18 @@
+================
+SET with trailing stderr redirect
+================
+
+set "X=Y" 2>NUL
+
+---
+
+(program
+  (redirect_stmt
+    (variable_assignment
+      (set_keyword)
+      (variable_name)
+      (quoted_assignment_value
+        (assignment_literal)))
+    (redirection
+      (redirect_op)
+      (redirect_target))))

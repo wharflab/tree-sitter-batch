@@ -1,0 +1,27 @@
+================
+Variable name starting with plus sign
+================
+
+echo %+INDENT%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Variable name starting with minus sign
+================
+
+echo %-INDENT%
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))

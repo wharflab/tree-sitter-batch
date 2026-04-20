@@ -1,0 +1,12 @@
+================
+Echo off followed by setlocal via command separator
+================
+
+@echo off & setlocal disableDelayedExpansion
+
+---
+
+(program
+  (command_sep
+    (echo_off)
+    (setlocal_stmt)))

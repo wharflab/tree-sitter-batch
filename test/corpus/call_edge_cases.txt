@@ -1,0 +1,49 @@
+================
+Call with no target (DosTips idiom)
+================
+
+(call,)
+
+---
+
+(program
+  (parenthesized
+    (call_stmt)))
+
+================
+Call with semicolon terminator
+================
+
+(call;)
+
+---
+
+(program
+  (parenthesized
+    (call_stmt)))
+
+================
+Bare call statement
+================
+
+(call)
+
+---
+
+(program
+  (parenthesized
+    (call_stmt)))
+
+================
+Call to quoted path with arguments
+================
+
+call "%PROGRAMDATA%\mavenrc.cmd" %*
+
+---
+
+(program
+  (call_stmt
+    (string)
+    (argument_list
+      (variable_reference))))

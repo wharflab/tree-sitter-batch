@@ -1,0 +1,27 @@
+================
+Set display unquoted (no equals)
+================
+
+set PATH
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)))
+
+================
+Set display quoted prefix
+================
+
+set "wd%%~i"
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (variable_name)
+    (variable_name)))

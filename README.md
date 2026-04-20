@@ -7,11 +7,14 @@ Parses `.bat` and `.cmd` files into a concrete syntax tree for syntax highlighti
 ## Features
 
 - **Control flow** &mdash; `IF`/`ELSE` (EXIST, DEFINED, ERRORLEVEL, comparison with NOT), `FOR` (/D /R /L /F), `GOTO`, `CALL`, `EXIT /B`
-- **Variables** &mdash; `SET` (plain, `/A` arithmetic, `/P` prompt), `%VAR%`, `!VAR!`, `%%i`, `%~dp0`, `%VAR:old=new%`, escaped forms `%%VAR%%` `%%%%i`
+- **Variables** &mdash; `SET` (plain, `/A` arithmetic, `/P` prompt, display-only without `=`), `%VAR%`, `!VAR!`, `%%i`, `%~dp0`, `%VAR:old=new%`, subscripted delayed expansion `!ARR[%%i]!`, for-variable modifiers `%%~dpnxf` `%%~zS` `%%~$PATH:F`, escaped forms `%%VAR%%` `%%%%i`
 - **Echo** &mdash; free-form text with literal `(` `)` `!` `%`, inline strings, and variable references
-- **Operators** &mdash; pipes `|`, redirects `>` `>>` `2>` `2>&1`, conditional `&&` `||`, separator `&`
-- **Structure** &mdash; labels `:name`, comments `REM` `::`, parenthesized blocks, `@ECHO OFF`, macro invocations
+- **Operators** &mdash; pipes `|`, redirects `>` `>>` `<` `2>` `2>&1` (fds 0-9, including variable handles `>&%FD%` / `<&%FD%`), conditional `&&` `||`, separator `&`
+- **Line continuation** &mdash; trailing caret `^` joins the current line with the next (e.g. `"%JAVACMD%" ^` followed by indented arguments)
+- **Commands** &mdash; bare names, variable references as command, and quoted paths (`"C:\path\app.exe" args`, `call "%SCRIPT%" %*`)
+- **Structure** &mdash; labels `:name`, comments `REM` `::`, parenthesized blocks (including `@(...)`), `@ECHO OFF`, macro invocations, DosTips idioms `(call,)` / `(call;)` / `(call)` for ERRORLEVEL manipulation
 - **Scope** &mdash; `SETLOCAL`/`ENDLOCAL` with `ENABLEDELAYEDEXPANSION`
+- **Polyglot headers** &mdash; tolerates batch/PowerShell `<# ... #>` header lines and batch/VBScript lines marked with a trailing `'VBS` so SysToolsLib-style dual-language scripts parse cleanly
 - **Case-insensitive** &mdash; all keywords match regardless of casing
 
 ## Example

@@ -1,0 +1,31 @@
+================
+Set unquoted name includes a for-variable
+================
+
+set TITLE.%%a=%%c
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_name)
+    (variable_reference)
+    (assignment_value
+      (variable_reference))))
+
+================
+Set unquoted name begins with variable reference
+================
+
+set %name%.suffix=value
+
+---
+
+(program
+  (variable_assignment
+    (set_keyword)
+    (variable_reference)
+    (variable_name)
+    (assignment_value
+      (assignment_literal))))

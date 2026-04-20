@@ -1,0 +1,28 @@
+================
+Delayed expansion with for-variable in name
+================
+
+echo !T%%n.YEAR!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion with nested percent var and dot path
+================
+
+echo !T%%n.DAY! done
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference)
+      (argument_value))))

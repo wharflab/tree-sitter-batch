@@ -131,6 +131,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "variable_reference",
           "named": true
         }
@@ -173,6 +177,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "variable_reference",
           "named": true
         }
@@ -205,6 +213,10 @@
         },
         {
           "type": "cond_exec",
+          "named": true
+        },
+        {
+          "type": "echo_off",
           "named": true
         },
         {
@@ -272,6 +284,10 @@
         },
         {
           "type": "cond_exec",
+          "named": true
+        },
+        {
+          "type": "echo_off",
           "named": true
         },
         {
@@ -404,6 +420,25 @@
       "types": [
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fd_redirect",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "fd_redirect_op",
           "named": true
         },
         {
@@ -917,7 +952,15 @@
       "required": true,
       "types": [
         {
+          "type": "argument_list",
+          "named": true
+        },
+        {
           "type": "assignment_value",
+          "named": true
+        },
+        {
+          "type": "quoted_assignment_value",
           "named": true
         },
         {
@@ -972,6 +1015,10 @@
         },
         {
           "type": "redirection",
+          "named": true
+        },
+        {
+          "type": "variable_assignment",
           "named": true
         }
       ]
@@ -1073,6 +1120,14 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
@@ -1125,7 +1180,7 @@
     "named": true
   },
   {
-    "type": "fd_redirect",
+    "type": "fd_redirect_op",
     "named": true
   },
   {

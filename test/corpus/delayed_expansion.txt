@@ -1,0 +1,27 @@
+================
+Delayed expansion with for-variable subscript
+================
+
+echo !AUTORUN.D[%%h]!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))
+
+================
+Delayed expansion with percent variable subscript
+================
+
+echo !ARR[%1]!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference))))

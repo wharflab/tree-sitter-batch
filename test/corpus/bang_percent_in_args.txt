@@ -1,0 +1,35 @@
+================
+Command argument with trailing literal bang between var refs
+================
+
+echo %INDENT%!%~1!
+
+---
+
+(program
+  (cmd
+    (command_name)
+    (argument_list
+      (variable_reference)
+      (argument_value)
+      (variable_reference)
+      (argument_value))))
+
+================
+If body with cmd having bang-prefixed variable sequence
+================
+
+if defined X cmd %FOO%!%~1!
+
+---
+
+(program
+  (if_stmt
+    (argument_value)
+    (cmd
+      (command_name)
+      (argument_list
+        (variable_reference)
+        (argument_value)
+        (variable_reference)
+        (argument_value)))))
