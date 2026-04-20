@@ -14,3 +14,21 @@ for /l %%. in () do echo hi
       (command_name)
       (argument_list
         (argument_value)))))
+
+================
+For with digit variable name
+================
+
+for %%1 in (a) do echo hi
+
+---
+
+(program
+  (for_stmt
+    (for_variable)
+    (for_set
+      (for_set_literal))
+    (cmd
+      (command_name)
+      (argument_list
+        (argument_value)))))
