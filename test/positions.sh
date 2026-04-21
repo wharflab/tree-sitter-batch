@@ -6,15 +6,20 @@
 
 set -euo pipefail
 
+# Anchor at the repo root so `tree-sitter` finds the grammar via `tree-sitter.json`.
+cd "$(dirname "$0")/.."
+
 fail=0
-tmp=$(mktemp -t ts_batch_pos.XXXXXX)
+# Write fixtures inside the repo so the CLI's grammar-lookup (which walks the
+# parent chain of the target file) lands on this repo's `tree-sitter.json`.
+tmp=$(mktemp "test/.positions_fixture.XXXXXX.bat")
 trap 'rm -f "$tmp"' EXIT
 
 assert_span() {
   local name=$1 input=$2 expected=$3
   printf '%s\n' "$input" >"$tmp"
   local out
-  out=$(npx --no-install tree-sitter parse "$tmp" 2>/dev/null || true)
+  out=$(tree-sitter parse "$tmp" 2>/dev/null || true)
   if printf '%s' "$out" | grep -qF "$expected"; then
     echo "  PASS  $name"
   else
