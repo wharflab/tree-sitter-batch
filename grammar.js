@@ -58,7 +58,17 @@ export default grammar({
       // marker are extracted by the script itself as VBScript; the batch
       // interpreter never runs them. Consume the rest of the line after the
       // marker so any trailing VBScript tokens don't leak into the batch parse.
-      seq(/[^'\r\n][^\r\n]*[ \t]'VBS/, /[^\r\n]*/),
+      // Two branches are needed:
+      //   - lines with code before the marker: `...content... [ \t]'VBS rest`
+      //     (covers e.g. `Set foo = ... 'VBS`);
+      //   - the blank-separator VBS line that is whitespace-only before `'VBS`
+      //     — `extras` consumes the leading whitespace, so the token starts
+      //     directly at `'VBS` (covers CheckEOL.bat-style polyglot separators).
+      // The first branch's leading char class must exclude ` ` and `\t` —
+      // otherwise this high-precedence branch starts tokens inside leading
+      // whitespace and bleeds into `command_name`'s span on indented lines.
+      seq(/[^ \t'\r\n][^\r\n]*[ \t]'VBS/, /[^\r\n]*/),
+      seq('\'VBS', /[^\r\n]*/),
     ))),
     label: () => token(seq(':', /[$a-zA-Z_][$a-zA-Z0-9_.#-]*/, optional(seq(/[ \t]/, /[^\r\n]*/)))),
     variable_assignment: ($) => prec(8, seq(

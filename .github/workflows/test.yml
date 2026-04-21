@@ -15,6 +15,8 @@ jobs:
         uses: tree-sitter/setup-action/cli@v2
       - name: Run corpus tests
         run: tree-sitter test
+      - name: Position-sensitive regression checks
+        run: bash test/positions.sh
       - name: Parse example .bat/.cmd files (integration test)
         # Stats-only: some fixtures (Library.bat, paths.bat, zap.bat) are known to
         # have a small number of ERROR nodes. The next step enforces zero errors on
