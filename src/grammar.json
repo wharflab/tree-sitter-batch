@@ -258,7 +258,20 @@
               "members": [
                 {
                   "type": "PATTERN",
-                  "value": "[^'\\r\\n][^\\r\\n]*[ \\t]'VBS"
+                  "value": "[^ \\t'\\r\\n][^\\r\\n]*[ \\t]'VBS"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[^\\r\\n]*"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "'VBS"
                 },
                 {
                   "type": "PATTERN",
