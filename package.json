@@ -43,7 +43,7 @@
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "eslint-plugin-jsdoc": "^62.9.0"
+    "eslint-plugin-jsdoc": "^63.0.0"
   },
   "peerDependencies": {
     "tree-sitter": ">=0.25.0"
