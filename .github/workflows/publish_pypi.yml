@@ -71,7 +71,7 @@ jobs:
             popd > /dev/null
           done < <(jq -r '.grammars[].path // "."' tree-sitter.json)
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.4
+        uses: pypa/cibuildwheel@v4.0
         with:
           output-dir: dist
         env:
