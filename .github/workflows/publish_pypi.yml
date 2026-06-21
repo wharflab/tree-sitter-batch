@@ -18,7 +18,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -58,7 +58,7 @@ jobs:
           - macos-15-intel
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Set up tree-sitter CLI
         uses: tree-sitter/setup-action/cli@v2
       - name: Regenerate parser
