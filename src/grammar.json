@@ -2867,68 +2867,76 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "cond_exec"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "cond_exec"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "pipe_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "redirect_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "call_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "cmd"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "parenthesized"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "variable_assignment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "goto_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "exit_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "setlocal_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "endlocal_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "if_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "for_stmt"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "macro_invocation"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "echo_off"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "comment"
+                  }
+                ]
               },
               {
-                "type": "SYMBOL",
-                "name": "pipe_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "redirect_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "call_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "cmd"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "parenthesized"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "variable_assignment"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "goto_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "exit_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "setlocal_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "endlocal_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "if_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "for_stmt"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "macro_invocation"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "echo_off"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "comment"
+                "type": "BLANK"
               }
             ]
           }

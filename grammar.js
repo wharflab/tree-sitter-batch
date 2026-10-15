@@ -263,7 +263,8 @@ export default grammar({
     command_sep: ($) => prec.left(0, seq(
       choice($.command_sep, ...operand($)),
       '&',
-      choice(...operand($), $.comment),
+      // `npm run dev &`: the right-hand command may be absent
+      optional(choice(...operand($), $.comment)),
     )),
     variable_reference: () => token(varRefChoice()),
     _variable_reference_immediate: () => token.immediate(varRefChoice()),
